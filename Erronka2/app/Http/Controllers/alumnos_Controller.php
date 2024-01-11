@@ -10,7 +10,7 @@ class alumnos_Controller extends Controller
 {
     //
     public function erakutsi() {
-        $emaitza = Langilea::select('langilea.izena', 'langilea.abizenak', 'taldea.izena')
+        $emaitza = Langilea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
             ->join('taldea', 'taldea.kodea', '=', 'langilea.kodea')
             ->orderBy('taldea.izena', 'desc')
             ->get();
@@ -31,7 +31,7 @@ class alumnos_Controller extends Controller
          langilea::insert([
              'kodea' =>  $datos["kodea"],
              'izena' =>  $datos["izena"],
-             'abizenak' => $datos["abizenak"]
+             'abizena' => $datos["abizena"]
              // ... otras columnas y valores
          ]);
          return "allOkk";
