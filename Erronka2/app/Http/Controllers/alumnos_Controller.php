@@ -10,7 +10,7 @@ class alumnos_Controller extends Controller
 {
     //
     public function erakutsi() {
-        $emaitza = Langilea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
+        $emaitza = Langilea::select('langilea.izena', 'langilea.abizenak', 'taldea.izena')
             ->join('taldea', 'taldea.kodea', '=', 'langilea.kodea')
             ->orderBy('taldea.izena', 'desc')
             ->get();
@@ -31,7 +31,7 @@ class alumnos_Controller extends Controller
          langilea::insert([
              'kodea' =>  $datos["kodea"],
              'izena' =>  $datos["izena"],
-             'abizena' => $datos["abizena"]
+             'abizenak' => $datos["abizenak"]
              // ... otras columnas y valores
          ]);
          return "allOkk";
@@ -40,7 +40,7 @@ class alumnos_Controller extends Controller
     public function editatu(Request $request){
          $datos = $request->all();
          $hoy = date('Y-m-d H:i:s');
-         langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizena' => $datos['abizena']]);
+         langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
          return "allOkk";
     } 
 }
