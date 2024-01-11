@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class materiala_erabili extends Model
 {
     protected $table = 'materiala_erabili';
+    public $timestamps = false;
 }

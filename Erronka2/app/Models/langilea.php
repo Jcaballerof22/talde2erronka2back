@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class langilea extends Model
 {
     protected $table = 'langilea';
+    public $timestamps = false;
 }

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class bezero_fitxa extends Model
 {
     protected $table = 'bezero_fitxa';
+    public $timestamps = false;
 }

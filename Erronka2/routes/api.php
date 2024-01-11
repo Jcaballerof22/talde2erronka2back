@@ -19,3 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('grupos','App\Http\Controllers\grupos_Controller@erakutsi');
+
+Route::post('grupos/txertatu', 'App\Http\Controllers\grupos_Controller@txertatu');
+
+Route::put('grupos/ezabatu', 'App\Http\Controllers\grupos_Controller@ezabatu');
+
+Route::put('grupos/editatu', 'App\Http\Controllers\grupos_Controller@editatu');

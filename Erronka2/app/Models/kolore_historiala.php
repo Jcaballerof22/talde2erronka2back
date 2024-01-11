@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class kolore_historiala extends Model
 {
     protected $table = 'kolore_historiala';
+    public $timestamps = false;
 }
