@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\erabiltzailea;
+// use App\Models\erabiltzailea;
 use App\Models\langilea;
 use App\Models\taldea;
 
@@ -11,11 +11,9 @@ class grupos_Controller extends Controller
 {
     
     public function erakutsi() {
-        $emaitza = taldea::select('taldea.izena', langilea::raw('COUNT(langilea.kodea) as langileak'))
-        ->Leftjoin('langilea', 'taldea.kodea', '=', 'langilea.kodea')
-        ->whereNull('taldea.ezabatze_data')
-        ->groupBy('taldea.izena')
-        ->orderBy('langileak', 'desc')
+        $emaitza = taldea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
+        ->where('taldea.kodea','langilea.kodea')
+        ->orderBy('taldea.izena', 'desc')
         ->get();
         return json_encode($emaitza);
     }
@@ -23,15 +21,16 @@ class grupos_Controller extends Controller
     public function ezabatu(Request $request){
         $datos = $request->all();
         $hoy = date('Y-m-d H:i:s');
-        taldea::where('taldea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
+        langilea::where('langilea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
         return "allOk";
     }
 
     public function txertatu(Request $request){
        $datos = $request->all();
-        taldea::insert([
+        langilea::insert([
             'kodea' =>  $datos["kodea"],
-            'izena' =>  $datos["izena"]
+            'izena' =>  $datos["izena"],
+            'abizena' => $datos["abizena"]
             // ... otras columnas y valores
         ]);
         return "allOkk";
@@ -40,7 +39,7 @@ class grupos_Controller extends Controller
     public function editatu(Request $request){
         $datos = $request->all();
         $hoy = date('Y-m-d H:i:s');
-        taldea::where('taldea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena']]);
+        langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizena' => $datos['abizena']]);
         return "allOkk";
      } 
 }
