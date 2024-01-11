@@ -10,12 +10,14 @@ class alumnos_Controller extends Controller
 {
     //
     public function erakutsi() {
-        $emaitza = langilea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
-        ->where('taldea.kodea','langilea.kodea')
-        ->orderBy('taldea.izena', 'desc')
-        ->get();
+        $emaitza = Langilea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
+            ->join('taldea', 'taldea.kodea', '=', 'langilea.kodea')
+            ->orderBy('taldea.izena', 'desc')
+            ->get();
+    
         return json_encode($emaitza);
     }
+    
 
     public function ezabatu(Request $request){
         $datos = $request->all();
