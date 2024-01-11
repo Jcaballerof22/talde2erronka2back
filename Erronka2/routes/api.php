@@ -25,3 +25,13 @@ Route::post('grupos/txertatu', 'App\Http\Controllers\grupos_Controller@txertatu'
 Route::put('grupos/ezabatu', 'App\Http\Controllers\grupos_Controller@ezabatu');
 
 Route::put('grupos/editatu', 'App\Http\Controllers\grupos_Controller@editatu');
+
+// Alumnos
+
+Route::get('alumnos','App\Http\Controllers\alumnos_Controller@erakutsi');
+
+Route::post('alumnos/txertatu', 'App\Http\Controllers\alumnos_Controller@txertatu');
+
+Route::put('alumnos/ezabatu', 'App\Http\Controllers\alumnos_Controller@ezabatu');
+
+Route::put('alumnos/editatu', 'App\Http\Controllers\alumnos_Controller@editatu');
