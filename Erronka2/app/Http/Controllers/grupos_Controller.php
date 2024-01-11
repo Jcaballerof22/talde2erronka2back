@@ -11,9 +11,11 @@ class grupos_Controller extends Controller
 {
     
     public function erakutsi() {
-        $emaitza = taldea::select('langilea.izena', 'langilea.abizena', 'taldea.izena')
-        ->where('taldea.kodea','langilea.kodea')
-        ->orderBy('taldea.izena', 'desc')
+        $emaitza = taldea::select('taldea.izena', langilea::raw('COUNT(langilea.kodea) as langileak'))
+        ->Leftjoin('langilea', 'taldea.kodea', '=', 'langilea.kodea')
+        ->whereNull('taldea.ezabatze_data')
+        ->groupBy('taldea.izena')
+        ->orderBy('langileak', 'desc')
         ->get();
         return json_encode($emaitza);
     }
@@ -21,16 +23,15 @@ class grupos_Controller extends Controller
     public function ezabatu(Request $request){
         $datos = $request->all();
         $hoy = date('Y-m-d H:i:s');
-        langilea::where('langilea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
+        taldea::where('taldea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
         return "allOk";
     }
 
     public function txertatu(Request $request){
        $datos = $request->all();
-        langilea::insert([
+        taldea::insert([
             'kodea' =>  $datos["kodea"],
-            'izena' =>  $datos["izena"],
-            'abizena' => $datos["abizena"]
+            'izena' =>  $datos["izena"]
             // ... otras columnas y valores
         ]);
         return "allOkk";
@@ -39,7 +40,7 @@ class grupos_Controller extends Controller
     public function editatu(Request $request){
         $datos = $request->all();
         $hoy = date('Y-m-d H:i:s');
-        langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizena' => $datos['abizena']]);
+        taldea::where('taldea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena']]);
         return "allOkk";
      } 
 }
