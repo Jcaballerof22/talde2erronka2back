@@ -17,38 +17,30 @@ class Ordutegia_Controller extends Controller
     }
 
     public function editatu(Request $request){
-        $datos = $request->all();
-
-        $izena = $datos["izena"];
-        $eguna = $datos["eguna"];
         
-        switch ($datos["eguna"]) {
-            case 'Lunes':
-                $eguna = 1;
-                break;
-            case 'Martes':
-                $eguna = 2;
-                break;
-            case 'Miércoles':
-                $eguna = 3;
-                break;
-            case 'Jueves':
-                $eguna = 4;
-                break;
-            case 'Viernes':
-                $eguna = 5;
-                break;
-            default:
-                # code...
-                break;
+        try{
+
+            $datos = $request->json()->all();
+
+            if (!isset($datos['izena']) || !isset($datos['eguna'])) {
+                return response()->json(['error' => 'Datos incompletos'], 400);
+            }
+
+            $izena = $datos["izena"];
+            $eguna = $datos["eguna"];
+
+            $taldeaKodea = taldea::where('izena', $izena)->value('kodea');
+
+            ordutegia::where('eguna', $eguna)
+                ->update(['kodea' => $taldeaKodea]);
+
+            return response()->json(['message' => 'Operación exitosa']);
+
+        }catch (\Exception $e) {
+            // Manejar errores
+            \Log::error('Error en Ordutegia_Controller@editatu: ' . $e->getMessage());
+            return response()->json(['error' => 'Error en el servidor'], 500);
         }
-
-        $taldeaKodea = taldea::where('izena', $izena)->value('kodea');
-
-        ordutegia::where('eguna', $eguna)
-            ->update(['kodea' => $taldeaKodea]);
-
-        return "BIen";
     }
 }
 
