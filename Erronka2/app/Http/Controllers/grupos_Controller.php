@@ -11,7 +11,7 @@ class grupos_Controller extends Controller
 {
     
     public function erakutsi() {
-        $emaitza = taldea::select('taldea.izena', langilea::raw('COUNT(langilea.kodea) as langileak'))
+        $emaitza = taldea::select('taldea.izena, taldea,kodea', langilea::raw('COUNT(langilea.kodea) as langileak'))
         ->Leftjoin('langilea', 'taldea.kodea', '=', 'langilea.kodea')
         ->whereNull('taldea.ezabatze_data')
         ->groupBy('taldea.izena')
