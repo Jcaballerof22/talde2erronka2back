@@ -21,14 +21,14 @@ class grupos_Controller extends Controller
     }
 
     public function ezabatu(Request $request){
-        $datos = $request->all();
+        $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
         taldea::where('taldea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
         return "allOk";
     }
 
     public function txertatu(Request $request){
-       $datos = $request->all();
+       $datos = $request->json()->all();
         taldea::insert([
             'kodea' =>  $datos["kodea"],
             'izena' =>  $datos["izena"]
@@ -38,7 +38,7 @@ class grupos_Controller extends Controller
     } 
 
     public function editatu(Request $request){
-        $datos = $request->all();
+        $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
         taldea::where('taldea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena']]);
         return "allOkk";

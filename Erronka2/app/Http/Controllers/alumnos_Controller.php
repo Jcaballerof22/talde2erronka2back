@@ -24,25 +24,25 @@ class alumnos_Controller extends Controller
     
 
     public function ezabatu(Request $request){
-        $datos = $request->all();
+        $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
         langilea::where('langilea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
         return "allOk";
     }
 
     public function txertatu(Request $request){
-        $datos = $request->all();
+        $datos = $request->json()->all();
          langilea::insert([
              'kodea' =>  $datos["kodea"],
              'izena' =>  $datos["izena"],
-             'abizena' => $datos["abizena"]
+             'abizenak' => $datos["abizenak"]
              // ... otras columnas y valores
          ]);
          return "allOkk";
     } 
  
     public function editatu(Request $request){
-         $datos = $request->all();
+         $datos = $request->json()->all();
          $hoy = date('Y-m-d H:i:s');
          langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
          return "allOkk";
