@@ -29,12 +29,11 @@ class grupos_Controller extends Controller
 
     public function txertatu(Request $request){
        $datos = $request->json()->all();
-        taldea::insert([
-            'kodea' =>  $datos["kodea"],
+        $id = taldea::insertGetId([
             'izena' =>  $datos["izena"]
             // ... otras columnas y valores
         ]);
-        return "allOkk";
+        return $id;
     } 
 
     public function editatu(Request $request){

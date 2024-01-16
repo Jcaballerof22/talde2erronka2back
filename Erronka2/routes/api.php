@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Grupos
+
 Route::get('grupos','App\Http\Controllers\grupos_Controller@erakutsi');
 
 Route::post('grupos/txertatu', 'App\Http\Controllers\grupos_Controller@txertatu');
