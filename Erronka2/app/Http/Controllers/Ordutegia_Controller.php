@@ -9,7 +9,7 @@ use App\Models\ordutegia;
 class Ordutegia_Controller extends Controller
 {
     public function erakutsi() {
-        $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA')
+        $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA', 'ordutegia.HASIERA_DATA', 'ordutegia.AMAIERA_DATA')
         ->join('taldea', 'ordutegia.KODEA', '=', 'taldea.KODEA')
         ->get();
     
