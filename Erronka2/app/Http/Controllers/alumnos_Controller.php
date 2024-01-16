@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\taldea;
 use App\Models\langilea;
 
 class alumnos_Controller extends Controller
@@ -11,12 +10,13 @@ class alumnos_Controller extends Controller
     //
     public function erakutsi() {
         $emaitza = Langilea::select(
-            'langilea.izena AS langilea_izena',
-            'langilea.abizenak AS langilea_abizenak',
-            'taldea.izena AS taldea_izena'
+            'izena',
+            'abizenak',
+            'kodea',
+            'id'
         )
-            ->join('taldea', 'taldea.kodea', '=', 'langilea.kodea')
-            ->orderBy('taldea.izena', 'desc')
+            ->whereNull('ezabatze_data')
+            ->orderBy('izena', 'asc')
             ->get();
     
         return json_encode($emaitza);
@@ -26,25 +26,25 @@ class alumnos_Controller extends Controller
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        langilea::where('langilea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data', $hoy]);
+        langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
         return "allOk";
     }
 
     public function txertatu(Request $request){
         $datos = $request->json()->all();
-         langilea::insert([
+        $id = langilea::insertGetId([
              'kodea' =>  $datos["kodea"],
              'izena' =>  $datos["izena"],
              'abizenak' => $datos["abizenak"]
              // ... otras columnas y valores
          ]);
-         return "allOkk";
+         return $id;
     } 
  
     public function editatu(Request $request){
          $datos = $request->json()->all();
          $hoy = date('Y-m-d H:i:s');
-         langilea::where('langilea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
+         langilea::where('langilea.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
          return "allOkk";
     } 
 }
