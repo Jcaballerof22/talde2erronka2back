@@ -28,11 +28,13 @@ class Ordutegia_Controller extends Controller
 
             $izena = $datos["izena"];
             $eguna = $datos["eguna"];
+            $fechaInicio = $datos["fechaInicio"];
+            $fechaFin = $datos["fechaFin"];
 
             $taldeaKodea = taldea::where('izena', $izena)->value('kodea');
 
             ordutegia::where('eguna', $eguna)
-                ->update(['kodea' => $taldeaKodea]);
+                ->update(['kodea' => $taldeaKodea, 'hasiera_data' => $fechaInicio, 'amaiera_data' => $fechaFin]);
 
             return response()->json(['message' => 'Operación exitosa']);
 
