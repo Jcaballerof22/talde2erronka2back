@@ -1,357 +1,293 @@
 <?php
 
-namespace Illuminate\Database\Schema\Grammars;
+namespace Illuminate\Database;
 
-use BackedEnum;
-use Doctrine\DBAL\Schema\AbstractSchemaManager as SchemaManager;
-use Doctrine\DBAL\Schema\TableDiff;
 use Illuminate\Contracts\Database\Query\Expression;
-use Illuminate\Database\Concerns\CompilesJsonPaths;
-use Illuminate\Database\Connection;
-use Illuminate\Database\Grammar as BaseGrammar;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Fluent;
-use LogicException;
+use Illuminate\Support\Traits\Macroable;
 use RuntimeException;
 
-abstract class Grammar extends BaseGrammar
+abstract class Grammar
 {
-    use CompilesJsonPaths;
+    use Macroable;
 
     /**
-     * The possible column modifiers.
+     * The connection used for escaping values.
      *
-     * @var string[]
+     * @var \Illuminate\Database\Connection
      */
-    protected $modifiers = [];
+    protected $connection;
 
     /**
-     * If this Grammar supports schema changes wrapped in a transaction.
+     * The grammar table prefix.
      *
-     * @var bool
+     * @var string
      */
-    protected $transactions = false;
+    protected $tablePrefix = '';
 
     /**
-     * The commands to be executed outside of create or alter command.
+     * Wrap an array of values.
      *
-     * @var array
-     */
-    protected $fluentCommands = [];
-
-    /**
-     * Compile a create database command.
-     *
-     * @param  string  $name
-     * @param  \Illuminate\Database\Connection  $connection
-     * @return void
-     *
-     * @throws \LogicException
-     */
-    public function compileCreateDatabase($name, $connection)
-    {
-        throw new LogicException('This database driver does not support creating databases.');
-    }
-
-    /**
-     * Compile a drop database if exists command.
-     *
-     * @param  string  $name
-     * @return void
-     *
-     * @throws \LogicException
-     */
-    public function compileDropDatabaseIfExists($name)
-    {
-        throw new LogicException('This database driver does not support dropping databases.');
-    }
-
-    /**
-     * Compile a rename column command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @param  \Illuminate\Database\Connection  $connection
-     * @return array|string
-     */
-    public function compileRenameColumn(Blueprint $blueprint, Fluent $command, Connection $connection)
-    {
-        return RenameColumn::compile($this, $blueprint, $command, $connection);
-    }
-
-    /**
-     * Compile a change column command into a series of SQL statements.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @param  \Illuminate\Database\Connection  $connection
-     * @return array|string
-     *
-     * @throws \RuntimeException
-     */
-    public function compileChange(Blueprint $blueprint, Fluent $command, Connection $connection)
-    {
-        return ChangeColumn::compile($this, $blueprint, $command, $connection);
-    }
-
-    /**
-     * Compile a fulltext index key command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public function compileFulltext(Blueprint $blueprint, Fluent $command)
-    {
-        throw new RuntimeException('This database driver does not support fulltext index creation.');
-    }
-
-    /**
-     * Compile a drop fulltext index command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public function compileDropFullText(Blueprint $blueprint, Fluent $command)
-    {
-        throw new RuntimeException('This database driver does not support fulltext index removal.');
-    }
-
-    /**
-     * Compile a foreign key command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @return string
-     */
-    public function compileForeign(Blueprint $blueprint, Fluent $command)
-    {
-        // We need to prepare several of the elements of the foreign key definition
-        // before we can create the SQL, such as wrapping the tables and convert
-        // an array of columns to comma-delimited strings for the SQL queries.
-        $sql = sprintf('alter table %s add constraint %s ',
-            $this->wrapTable($blueprint),
-            $this->wrap($command->index)
-        );
-
-        // Once we have the initial portion of the SQL statement we will add on the
-        // key name, table name, and referenced columns. These will complete the
-        // main portion of the SQL statement and this SQL will almost be done.
-        $sql .= sprintf('foreign key (%s) references %s (%s)',
-            $this->columnize($command->columns),
-            $this->wrapTable($command->on),
-            $this->columnize((array) $command->references)
-        );
-
-        // Once we have the basic foreign key creation statement constructed we can
-        // build out the syntax for what should happen on an update or delete of
-        // the affected columns, which will get something like "cascade", etc.
-        if (! is_null($command->onDelete)) {
-            $sql .= " on delete {$command->onDelete}";
-        }
-
-        if (! is_null($command->onUpdate)) {
-            $sql .= " on update {$command->onUpdate}";
-        }
-
-        return $sql;
-    }
-
-    /**
-     * Compile the blueprint's added column definitions.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @return array
-     */
-    protected function getColumns(Blueprint $blueprint)
-    {
-        $columns = [];
-
-        foreach ($blueprint->getAddedColumns() as $column) {
-            // Each of the column types has their own compiler functions, which are tasked
-            // with turning the column definition into its SQL format for this platform
-            // used by the connection. The column's modifiers are compiled and added.
-            $sql = $this->wrap($column).' '.$this->getType($column);
-
-            $columns[] = $this->addModifiers($sql, $blueprint, $column);
-        }
-
-        return $columns;
-    }
-
-    /**
-     * Get the SQL for the column data type.
-     *
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function getType(Fluent $column)
-    {
-        return $this->{'type'.ucfirst($column->type)}($column);
-    }
-
-    /**
-     * Create the column definition for a generated, computed column type.
-     *
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return void
-     *
-     * @throws \RuntimeException
-     */
-    protected function typeComputed(Fluent $column)
-    {
-        throw new RuntimeException('This database driver does not support the computed type.');
-    }
-
-    /**
-     * Add the column modifiers to the definition.
-     *
-     * @param  string  $sql
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function addModifiers($sql, Blueprint $blueprint, Fluent $column)
-    {
-        foreach ($this->modifiers as $modifier) {
-            if (method_exists($this, $method = "modify{$modifier}")) {
-                $sql .= $this->{$method}($blueprint, $column);
-            }
-        }
-
-        return $sql;
-    }
-
-    /**
-     * Get the primary key command if it exists on the blueprint.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  string  $name
-     * @return \Illuminate\Support\Fluent|null
-     */
-    protected function getCommandByName(Blueprint $blueprint, $name)
-    {
-        $commands = $this->getCommandsByName($blueprint, $name);
-
-        if (count($commands) > 0) {
-            return reset($commands);
-        }
-    }
-
-    /**
-     * Get all of the commands with a given name.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  string  $name
-     * @return array
-     */
-    protected function getCommandsByName(Blueprint $blueprint, $name)
-    {
-        return array_filter($blueprint->getCommands(), function ($value) use ($name) {
-            return $value->name == $name;
-        });
-    }
-
-    /**
-     * Add a prefix to an array of values.
-     *
-     * @param  string  $prefix
      * @param  array  $values
      * @return array
      */
-    public function prefixArray($prefix, array $values)
+    public function wrapArray(array $values)
     {
-        return array_map(function ($value) use ($prefix) {
-            return $prefix.' '.$value;
-        }, $values);
+        return array_map([$this, 'wrap'], $values);
     }
 
     /**
      * Wrap a table in keyword identifiers.
      *
-     * @param  mixed  $table
+     * @param  \Illuminate\Contracts\Database\Query\Expression|string  $table
      * @return string
      */
     public function wrapTable($table)
     {
-        return parent::wrapTable(
-            $table instanceof Blueprint ? $table->getTable() : $table
-        );
+        if (! $this->isExpression($table)) {
+            return $this->wrap($this->tablePrefix.$table, true);
+        }
+
+        return $this->getValue($table);
     }
 
     /**
      * Wrap a value in keyword identifiers.
      *
-     * @param  \Illuminate\Support\Fluent|\Illuminate\Contracts\Database\Query\Expression|string  $value
+     * @param  \Illuminate\Contracts\Database\Query\Expression|string  $value
      * @param  bool  $prefixAlias
      * @return string
      */
     public function wrap($value, $prefixAlias = false)
     {
-        return parent::wrap(
-            $value instanceof Fluent ? $value->name : $value, $prefixAlias
-        );
+        if ($this->isExpression($value)) {
+            return $this->getValue($value);
+        }
+
+        // If the value being wrapped has a column alias we will need to separate out
+        // the pieces so we can wrap each of the segments of the expression on its
+        // own, and then join these both back together using the "as" connector.
+        if (stripos($value, ' as ') !== false) {
+            return $this->wrapAliasedValue($value, $prefixAlias);
+        }
+
+        // If the given value is a JSON selector we will wrap it differently than a
+        // traditional value. We will need to split this path and wrap each part
+        // wrapped, etc. Otherwise, we will simply wrap the value as a string.
+        if ($this->isJsonSelector($value)) {
+            return $this->wrapJsonSelector($value);
+        }
+
+        return $this->wrapSegments(explode('.', $value));
     }
 
     /**
-     * Format a value so that it can be used in "default" clauses.
+     * Wrap a value that has an alias.
+     *
+     * @param  string  $value
+     * @param  bool  $prefixAlias
+     * @return string
+     */
+    protected function wrapAliasedValue($value, $prefixAlias = false)
+    {
+        $segments = preg_split('/\s+as\s+/i', $value);
+
+        // If we are wrapping a table we need to prefix the alias with the table prefix
+        // as well in order to generate proper syntax. If this is a column of course
+        // no prefix is necessary. The condition will be true when from wrapTable.
+        if ($prefixAlias) {
+            $segments[1] = $this->tablePrefix.$segments[1];
+        }
+
+        return $this->wrap($segments[0]).' as '.$this->wrapValue($segments[1]);
+    }
+
+    /**
+     * Wrap the given value segments.
+     *
+     * @param  array  $segments
+     * @return string
+     */
+    protected function wrapSegments($segments)
+    {
+        return collect($segments)->map(function ($segment, $key) use ($segments) {
+            return $key == 0 && count($segments) > 1
+                            ? $this->wrapTable($segment)
+                            : $this->wrapValue($segment);
+        })->implode('.');
+    }
+
+    /**
+     * Wrap a single string in keyword identifiers.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    protected function wrapValue($value)
+    {
+        if ($value !== '*') {
+            return '"'.str_replace('"', '""', $value).'"';
+        }
+
+        return $value;
+    }
+
+    /**
+     * Wrap the given JSON selector.
+     *
+     * @param  string  $value
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
+    protected function wrapJsonSelector($value)
+    {
+        throw new RuntimeException('This database engine does not support JSON operations.');
+    }
+
+    /**
+     * Determine if the given string is a JSON selector.
+     *
+     * @param  string  $value
+     * @return bool
+     */
+    protected function isJsonSelector($value)
+    {
+        return str_contains($value, '->');
+    }
+
+    /**
+     * Convert an array of column names into a delimited string.
+     *
+     * @param  array  $columns
+     * @return string
+     */
+    public function columnize(array $columns)
+    {
+        return implode(', ', array_map([$this, 'wrap'], $columns));
+    }
+
+    /**
+     * Create query parameter place-holders for an array.
+     *
+     * @param  array  $values
+     * @return string
+     */
+    public function parameterize(array $values)
+    {
+        return implode(', ', array_map([$this, 'parameter'], $values));
+    }
+
+    /**
+     * Get the appropriate query parameter place-holder for a value.
      *
      * @param  mixed  $value
      * @return string
      */
-    protected function getDefaultValue($value)
+    public function parameter($value)
     {
-        if ($value instanceof Expression) {
-            return $this->getValue($value);
+        return $this->isExpression($value) ? $this->getValue($value) : '?';
+    }
+
+    /**
+     * Quote the given string literal.
+     *
+     * @param  string|array  $value
+     * @return string
+     */
+    public function quoteString($value)
+    {
+        if (is_array($value)) {
+            return implode(', ', array_map([$this, __FUNCTION__], $value));
         }
 
-        if ($value instanceof BackedEnum) {
-            return "'{$value->value}'";
+        return "'$value'";
+    }
+
+    /**
+     * Escapes a value for safe SQL embedding.
+     *
+     * @param  string|float|int|bool|null  $value
+     * @param  bool  $binary
+     * @return string
+     */
+    public function escape($value, $binary = false)
+    {
+        if (is_null($this->connection)) {
+            throw new RuntimeException("The database driver's grammar implementation does not support escaping values.");
         }
 
-        return is_bool($value)
-                    ? "'".(int) $value."'"
-                    : "'".(string) $value."'";
+        return $this->connection->escape($value, $binary);
     }
 
     /**
-     * Create an empty Doctrine DBAL TableDiff from the Blueprint.
+     * Determine if the given value is a raw expression.
      *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Doctrine\DBAL\Schema\AbstractSchemaManager  $schema
-     * @return \Doctrine\DBAL\Schema\TableDiff
-     */
-    public function getDoctrineTableDiff(Blueprint $blueprint, SchemaManager $schema)
-    {
-        $tableName = $this->getTablePrefix().$blueprint->getTable();
-
-        $table = $schema->introspectTable($tableName);
-
-        return new TableDiff(tableName: $tableName, fromTable: $table);
-    }
-
-    /**
-     * Get the fluent commands for the grammar.
-     *
-     * @return array
-     */
-    public function getFluentCommands()
-    {
-        return $this->fluentCommands;
-    }
-
-    /**
-     * Check if this Grammar supports schema changes wrapped in a transaction.
-     *
+     * @param  mixed  $value
      * @return bool
      */
-    public function supportsSchemaTransactions()
+    public function isExpression($value)
     {
-        return $this->transactions;
+        return $value instanceof Expression;
+    }
+
+    /**
+     * Transforms expressions to their scalar types.
+     *
+     * @param  \Illuminate\Contracts\Database\Query\Expression|string|int|float  $expression
+     * @return string|int|float
+     */
+    public function getValue($expression)
+    {
+        if ($this->isExpression($expression)) {
+            return $this->getValue($expression->getValue($this));
+        }
+
+        return $expression;
+    }
+
+    /**
+     * Get the format for database stored dates.
+     *
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return 'Y-m-d H:i:s';
+    }
+
+    /**
+     * Get the grammar's table prefix.
+     *
+     * @return string
+     */
+    public function getTablePrefix()
+    {
+        return $this->tablePrefix;
+    }
+
+    /**
+     * Set the grammar's table prefix.
+     *
+     * @param  string  $prefix
+     * @return $this
+     */
+    public function setTablePrefix($prefix)
+    {
+        $this->tablePrefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Set the grammar's database connection.
+     *
+     * @param  \Illuminate\Database\Connection  $connection
+     * @return $this
+     */
+    public function setConnection($connection)
+    {
+        $this->connection = $connection;
+
+        return $this;
     }
 }
