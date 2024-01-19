@@ -28,19 +28,32 @@ class Ordutegia_Controller extends Controller
 
             $izena = $datos["izena"];
             $eguna = $datos["eguna"];
+            $fechaInicio = $datos["fechaInicio"];
+            $fechaFin = $datos["fechaFin"];
 
             $taldeaKodea = taldea::where('izena', $izena)->value('kodea');
 
             ordutegia::where('eguna', $eguna)
-                ->update(['kodea' => $taldeaKodea]);
+                ->update(['kodea' => $taldeaKodea, 'hasiera_data' => $fechaInicio, 'amaiera_data' => $fechaFin]);
 
             return response()->json(['message' => 'Operación exitosa']);
 
         }catch (\Exception $e) {
-            // Manejar errores
             \Log::error('Error en Ordutegia_Controller@editatu: ' . $e->getMessage());
             return response()->json(['error' => 'Error en el servidor'], 500);
         }
+    }
+
+    public function ezabatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+
+        ordutegia::where('eguna', $datos["eguna"])
+        ->update([
+            'eguneratze_data' => $hoy,
+            'ezabatze_data' => $hoy
+        ]);
+        return response()->json(['message' => 'Operación exitosa']);
     }
 }
 
