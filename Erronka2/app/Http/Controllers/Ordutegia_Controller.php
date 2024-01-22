@@ -9,7 +9,7 @@ use App\Models\ordutegia;
 class Ordutegia_Controller extends Controller
 {
     public function erakutsi() {
-        $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA', 'ordutegia.HASIERA_DATA', 'ordutegia.AMAIERA_DATA')
+        $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA', 'ordutegia.HASIERA_DATA', 'ordutegia.AMAIERA_DATA', 'ordutegia.EZABATZE_DATA')
         ->join('taldea', 'ordutegia.KODEA', '=', 'taldea.KODEA')
         ->get();
     
@@ -52,6 +52,28 @@ class Ordutegia_Controller extends Controller
         ->update([
             'eguneratze_data' => $hoy,
             'ezabatze_data' => $hoy
+        ]);
+        return response()->json(['message' => 'Operación exitosa']);
+    }
+
+    public function txertatu(Request $request){
+        $datos = $request->json()->all();
+
+        $hoy = date('Y-m-d');
+        $izena = $datos["izena"];
+        $taldeaKodea = taldea::where('izena', $izena)->value('kodea');
+        $eguna = $datos["eguna"];
+        $fechaInicio = $datos["fechaInicio"];
+        $fechaFin = $datos["fechaFin"];
+
+        ordutegia::insert([
+            'kodea' => $taldeaKodea,
+            'eguna' => $eguna,
+            'hasiera_data' => $fechaInicio,
+            'amaiera_data' => $fechaFin,
+            'eguneratze_data' => $hoy,
+            'hasiera_ordua' => "00:00:00",
+            'amaiera_ordua' => "00:00:00"
         ]);
         return response()->json(['message' => 'Operación exitosa']);
     }
