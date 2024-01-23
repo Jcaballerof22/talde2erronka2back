@@ -56,3 +56,8 @@ Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakut
 // Tickets
 
 Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
+
+// Roles
+
+Route::get('roles/{taldea}','App\Http\Controllers\Roles_Controller@erakutsi');
+
