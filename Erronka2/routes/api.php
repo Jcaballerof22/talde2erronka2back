@@ -49,7 +49,7 @@ Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabat
 
 //Hitzordua
 
-Route::get('hitzordua','App\Http\Controllers\hitzordua_Controller@erakutsi');
+Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
 
 // Tickets
 
