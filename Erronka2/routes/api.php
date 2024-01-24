@@ -61,3 +61,9 @@ Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
 
 Route::get('roles/{taldea}','App\Http\Controllers\Roles_Controller@erakutsi');
 
+Route::get('roles/pertsonak/{taldea}','App\Http\Controllers\Roles_Controller@erakutsiPertsonak');
+
+Route::post('roles/txertatu', 'App\Http\Controllers\Roles_Controller@txertatu');
+
+Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
+
