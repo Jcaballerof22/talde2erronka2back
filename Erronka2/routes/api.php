@@ -67,6 +67,10 @@ Route::post('roles/txertatu', 'App\Http\Controllers\Roles_Controller@txertatu');
 
 Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 
+// Productos
+
+Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
+
 //Materiala
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
