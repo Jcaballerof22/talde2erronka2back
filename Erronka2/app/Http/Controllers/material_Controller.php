@@ -29,16 +29,14 @@ class material_Controller extends Controller
     //     return "allOk";
     // }
 
-    // public function txertatu(Request $request){
-    //     $datos = $request->json()->all();
-    //     $id = langilea::insertGetId([
-    //          'kodea' =>  $datos["kodea"],
-    //          'izena' =>  $datos["izena"],
-    //          'abizenak' => $datos["abizenak"]
-    //          // ... otras columnas y valores
-    //      ]);
-    //      return $id;
-    // } 
+    public function txertatu(Request $request){
+        $datos = $request->json()->all();
+        $id = materiala::insertGetId([
+             'etiketa' =>  $datos["etiketa"],
+             'izena' =>  $datos["izena"]
+         ]);
+         return $id;
+    } 
  
     // public function editatu(Request $request){
     //      $datos = $request->json()->all();
