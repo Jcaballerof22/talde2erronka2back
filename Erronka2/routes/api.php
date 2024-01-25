@@ -75,5 +75,9 @@ Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
 
-Route::get('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
+Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
+
+Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu');
+
+Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
 

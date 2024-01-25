@@ -12,7 +12,8 @@ class material_Controller extends Controller
     public function erakutsi() {
         $emaitza = materiala::select(
             'etiketa',
-            'izena'
+            'izena',
+            'id'
         )
             ->whereNull('ezabatze_data')
             ->orderBy('izena', 'asc')
@@ -22,12 +23,12 @@ class material_Controller extends Controller
     }
     
 
-    // public function ezabatu(Request $request){
-    //     $datos = $request->json()->all();
-    //     $hoy = date('Y-m-d H:i:s');
-    //     langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
-    //     return "allOk";
-    // }
+    public function ezabatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        materiala::where('materiala.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+        return "allOk";
+    }
 
     public function txertatu(Request $request){
         $datos = $request->json()->all();
@@ -38,11 +39,11 @@ class material_Controller extends Controller
          return $id;
     } 
  
-    // public function editatu(Request $request){
-    //      $datos = $request->json()->all();
-    //      $hoy = date('Y-m-d H:i:s');
-    //      langilea::where('langilea.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
-    //      return "allOkk";
-    // } 
+    public function editatu(Request $request){
+         $datos = $request->json()->all();
+         $hoy = date('Y-m-d H:i:s');
+         materiala::where('materiala.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'etiketa' => $datos['etiketa'], 'izena' => $datos['izena']]);
+         return "allOkk";
+    }
 }
 
