@@ -23,6 +23,14 @@ class material_Controller extends Controller
         return json_encode($emaitza);
     }
 
+    public function erakutsiErabili() {
+        $emaitza = materiala::join('materiala_erabili', 'materiala.id', '=', 'materiala_erabili.id_materiala')
+        ->groupBy('materiala.izena', 'materiala.etiketa')
+        ->select('materiala.izena', 'materiala.etiketa', materiala_erabili::raw('COUNT(materiala_erabili.id) as count_id'))
+        ->get();
+        return json_encode($emaitza);
+    }
+
     // public function reservar(){
     //     $emaitza = materiala_erabili::select(
     //         'hasiera_data',
@@ -39,22 +47,11 @@ class material_Controller extends Controller
     //     return json_encode($emaitza);
     // }
     public function reservar(){
-        $hoy = date('Y-m-d H:i:s');
 
-    $emaitza = materiala_erabili::select(
-        'materiala_erabili.hasiera_data as hasiera_data',
-        'materiala_erabili.amaiera_data as amaiera_data',
-        'materiala_erabili.id as id_materiala_erabili',
-        'materiala_erabili.id_langilea',
-        'materiala_erabili.id_materiala',
-        'langilea.id as langilea_id',
-        'materiala.id as materiala_id'
-    )
-    ->leftJoin('langilea', 'materiala_erabili.id_langilea', '=', 'langilea.id')
-    ->leftJoin('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
-    ->whereDate('materiala_erabili.sortze_data', '=', $hoy)
-    ->latest('materiala_erabili.sortze_data')
-    ->first();
+        $emaitza = langilea::join('materiala_erabili', 'langilea.id', '=', 'materiala_erabili.id_langilea')
+        ->join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
+        ->select('materiala_erabili.id', 'materiala_erabili.id_langilea', 'materiala_erabili.id_materiala', 'materiala_erabili.hasiera_data', 'materiala_erabili.amaiera_data')
+        ->get();
 
     if ($emaitza) {
         return response()->json($emaitza);

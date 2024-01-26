@@ -84,7 +84,7 @@ Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
 
-Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsi');
+Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsiErabili');
 
 Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
 
