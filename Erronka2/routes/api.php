@@ -43,6 +43,8 @@ Route::put('alumnos/editatu', 'App\Http\Controllers\alumnos_Controller@editatu')
 
 Route::get('horarios','App\Http\Controllers\Ordutegia_Controller@erakutsi');
 
+Route::get('horarios/taldea','App\Http\Controllers\Ordutegia_Controller@erakutsiTaldea');
+
 Route::post('horarios/txertatu', 'App\Http\Controllers\Ordutegia_Controller@txertatu');
 
 Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editatu');

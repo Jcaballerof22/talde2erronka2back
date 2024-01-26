@@ -16,6 +16,19 @@ class Ordutegia_Controller extends Controller
         return json_encode($emaitza);
     }
 
+    // Sacar que talde está puesto hoy
+    public function erakutsiTaldea(){
+        $eguna = date('N');
+
+        $emaitza = ordutegia::join('taldea', 'taldea.kodea', '=', 'ordutegia.kodea')
+        ->where('ordutegia.eguna', $eguna)
+        ->whereNull('ordutegia.ezabatze_data')
+        ->select('taldea.izena')
+        ->get();
+
+        return json_encode($emaitza);
+    }
+
     public function editatu(Request $request){
         
         try{
