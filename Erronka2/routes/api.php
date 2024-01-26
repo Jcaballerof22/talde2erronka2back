@@ -43,6 +43,8 @@ Route::put('alumnos/editatu', 'App\Http\Controllers\alumnos_Controller@editatu')
 
 Route::get('horarios','App\Http\Controllers\Ordutegia_Controller@erakutsi');
 
+Route::get('horarios/taldea','App\Http\Controllers\Ordutegia_Controller@erakutsiTaldea');
+
 Route::post('horarios/txertatu', 'App\Http\Controllers\Ordutegia_Controller@txertatu');
 
 Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editatu');
@@ -50,6 +52,7 @@ Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editat
 Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabatu');
 
 //Hitzordua
+Route::get('hitzordua/tratamenduak','App\Http\Controllers\hitzordua_Controller@tratamenduak'); 
 
 Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
 
@@ -70,6 +73,10 @@ Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 // Productos
 
 Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
+
+// Categorias
+
+Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
 
 //Materiala
 
