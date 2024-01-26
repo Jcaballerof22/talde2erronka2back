@@ -12,13 +12,13 @@ class Productos_Controller extends Controller
     //
     public function erakutsi(){
         $emaitza = Produktua::join('kategoria', 'kategoria.ID', '=', 'produktua.id_kategoria')
-        ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.deskribapena', 'produktua.stock', 'kategoria.izena as kategoria')
-        ->orderBy('produktua.izena', 'asc')
-        ->get();
+            ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.deskribapena', 'produktua.stock', 'kategoria.izena as kategoria')
+            ->whereNull('produktua.ezabatze_data') 
+            ->orderBy('produktua.izena', 'asc')
+            ->get();
         return json_encode($emaitza);
     }
 
-<<<<<<< Updated upstream
     public function erakutsiMugimendua(){
         $emaitza = produktua::join('produktu_mugimendua', 'produktua.id', '=', 'produktu_mugimendua.id_produktua')
         ->groupBy('produktua.izena')
@@ -26,7 +26,7 @@ class Productos_Controller extends Controller
         ->get();
         return json_encode($emaitza);
     }
-=======
+    
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -34,8 +34,24 @@ class Productos_Controller extends Controller
         return "allOk";
     }
 
->>>>>>> Stashed changes
+    public function editatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
 
+        $kategoria = Kategoria::where('izena', $datos["kategoria"])->value('id');
+
+        Produktua::where('produktua.id', $datos["id"])
+        ->update([
+            'eguneratze_data' => $hoy, 
+            'id' => $datos['id'], 
+            'izena' => $datos['izena'], 
+            'marka' => $datos['marka'],
+            'id_kategoria' => $kategoria,
+            'deskribapena' => $datos['deskribapena'], 
+            'stock' => $datos['stock']
+        ]);
+        return "allOkk";
+   } 
 
 
 
