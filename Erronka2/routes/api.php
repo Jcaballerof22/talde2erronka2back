@@ -50,6 +50,7 @@ Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editat
 Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabatu');
 
 //Hitzordua
+Route::get('hitzordua/tratamenduak','App\Http\Controllers\hitzordua_Controller@tratamenduak'); 
 
 Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
 
