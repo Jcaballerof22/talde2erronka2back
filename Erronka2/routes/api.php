@@ -72,6 +72,10 @@ Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 
 Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
+// Categorias
+
+Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
+
 //Materiala
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
