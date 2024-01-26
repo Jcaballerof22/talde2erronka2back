@@ -18,6 +18,7 @@ class Productos_Controller extends Controller
         return json_encode($emaitza);
     }
 
+<<<<<<< Updated upstream
     public function erakutsiMugimendua(){
         $emaitza = produktua::join('produktu_mugimendua', 'produktua.id', '=', 'produktu_mugimendua.id_produktua')
         ->groupBy('produktua.izena')
@@ -25,6 +26,15 @@ class Productos_Controller extends Controller
         ->get();
         return json_encode($emaitza);
     }
+=======
+    public function ezabatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        Produktua::where('produktua.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+        return "allOk";
+    }
+
+>>>>>>> Stashed changes
 
 
 
