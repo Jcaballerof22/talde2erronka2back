@@ -61,6 +61,7 @@ Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakut
 Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
 
 // Roles
+Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
 
 Route::get('roles/{taldea}','App\Http\Controllers\Roles_Controller@erakutsi');
 
@@ -75,6 +76,7 @@ Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
 Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@erakutsiMugimendua');
+Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
 // Categorias
 
