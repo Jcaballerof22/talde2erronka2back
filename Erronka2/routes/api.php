@@ -94,3 +94,6 @@ Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu
 
 Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
 
+Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservarM');
+
+

@@ -82,5 +82,10 @@ class material_Controller extends Controller
          materiala::where('materiala.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'etiketa' => $datos['etiketa'], 'izena' => $datos['izena']]);
          return "allOkk";
     }
+
+    public function filtro($id){
+
+        materiala_erabili::select()->where('id_materiala' , $id)->get();
+    }
 }
 
