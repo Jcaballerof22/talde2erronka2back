@@ -46,19 +46,26 @@ class material_Controller extends Controller
     //     ->first();
     //     return json_encode($emaitza);
     // }
-    public function reservar(){
+    public function reservar(Request $request){
+
+        $id = $request->input('id');
 
         $emaitza = langilea::join('materiala_erabili', 'langilea.id', '=', 'materiala_erabili.id_langilea')
         ->join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
         ->select('materiala_erabili.id', 'materiala_erabili.id_langilea', 'materiala_erabili.id_materiala', 'materiala_erabili.hasiera_data', 'materiala_erabili.amaiera_data')
+        ->where('materiala_erabili.id_materiala', $id)
+        ->orderByDesc('materiala_erabili.id')
+        ->limit(1)
         ->get();
 
-    if ($emaitza) {
-        return response()->json($emaitza);
-    } else {
-        return response()->json(['error' => 'No se encontraron resultados'], 404);
+
+
+        if ($emaitza) {
+            return response()->json($emaitza);
+        } else {
+            return response()->json(['error' => 'No se encontraron resultados'], 404);
+        }
     }
-}
 
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
@@ -81,11 +88,6 @@ class material_Controller extends Controller
          $hoy = date('Y-m-d H:i:s');
          materiala::where('materiala.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'etiketa' => $datos['etiketa'], 'izena' => $datos['izena']]);
          return "allOkk";
-    }
-
-    public function filtro($id){
-
-        materiala_erabili::select()->where('id_materiala' , $id)->get();
     }
 }
 
