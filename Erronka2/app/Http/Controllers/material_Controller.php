@@ -31,6 +31,14 @@ class material_Controller extends Controller
         return json_encode($emaitza);
     }
 
+    public function erakutsiMugimenduak(){
+        $emaitza = materiala_erabili::join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
+        ->join('langilea', 'materiala_erabili.id_langilea', '=', 'langilea.id')
+        ->select('materiala.izena AS materiala', 'langilea.izena', 'langilea.abizenak', 'materiala_erabili.hasiera_data', 'materiala_erabili.amaiera_data')
+        ->get();
+        return json_encode($emaitza);
+    }
+
     // public function reservar(){
     //     $emaitza = materiala_erabili::select(
     //         'hasiera_data',

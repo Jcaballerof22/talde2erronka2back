@@ -26,6 +26,14 @@ class Productos_Controller extends Controller
         ->get();
         return json_encode($emaitza);
     }
+
+    public function erakutsiMugimenduGuztiak(){
+        $emaitza = produktu_mugimendua::join('produktua', 'produktu_mugimendua.id_produktua', '=', 'produktua.id')
+        ->join('langilea', 'produktu_mugimendua.id_langilea', '=', 'langilea.id')
+        ->select(produktu_mugimendua::raw('produktua.izena AS produktu_izena'), 'produktua.marka', 'langilea.izena', 'langilea.abizenak', 'produktu_mugimendua.data', 'produktu_mugimendua.kopurua')
+        ->get();
+    return json_encode($emaitza);
+    }
     
     public function ezabatu(Request $request){
         $datos = $request->json()->all();

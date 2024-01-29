@@ -77,6 +77,8 @@ Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
 Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@erakutsiMugimendua');
 
+Route::get('productos/mugimenduguztiak','App\Http\Controllers\Productos_Controller@erakutsiMugimenduGuztiak');
+
 Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
 Route::put('productos/editatu','App\Http\Controllers\Productos_Controller@editatu');
@@ -90,6 +92,8 @@ Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
 
 Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsiErabili');
+
+Route::get('materiala/mugimenduak','App\Http\Controllers\material_Controller@erakutsiMugimenduak');
 
 Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
 

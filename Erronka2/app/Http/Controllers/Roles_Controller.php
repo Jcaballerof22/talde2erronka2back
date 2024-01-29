@@ -11,7 +11,7 @@ class Roles_Controller extends Controller
 {
     public function txandaHistorial(){
         $resultado = txanda::join('langilea', 'txanda.id_langilea', '=', 'langilea.id')
-        ->select('txanda.mota', 'txanda.data', 'langilea.izena')
+        ->select('txanda.mota', 'txanda.data', 'langilea.izena', 'langilea.abizenak')
         ->orderByDesc('txanda.data')
         ->get();
 
