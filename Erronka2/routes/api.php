@@ -50,7 +50,6 @@ Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editat
 Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabatu');
 
 //Hitzordua
-Route::get('hitzordua/tratamenduak','App\Http\Controllers\hitzordua_Controller@tratamenduak'); 
 
 Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
 
@@ -72,7 +71,7 @@ Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 
 Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
-//Materiala
+// Materiala
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
 
@@ -81,4 +80,16 @@ Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txert
 Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu');
 
 Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
+
+// Tratamenduak
+
+Route::get('tratamenduak','App\Http\Controllers\tratamenduak_Controller@erakutsi'); 
+
+Route::post('tratamenduak/add','App\Http\Controllers\tratamenduak_Controller@addhitzorduTratamendu'); 
+
+Route::put('tratamenduak/remove','App\Http\Controllers\tratamenduak_Controller@removehitzorduTratamendu'); 
+
+Route::get('tratamenduak/{hitzorduaId}','App\Http\Controllers\tratamenduak_Controller@hitzorduTratamendu'); 
+
+
 
