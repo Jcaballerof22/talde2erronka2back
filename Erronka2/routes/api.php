@@ -43,6 +43,8 @@ Route::put('alumnos/editatu', 'App\Http\Controllers\alumnos_Controller@editatu')
 
 Route::get('horarios','App\Http\Controllers\Ordutegia_Controller@erakutsi');
 
+Route::get('horarios/taldea','App\Http\Controllers\Ordutegia_Controller@erakutsiTaldea');
+
 Route::post('horarios/txertatu', 'App\Http\Controllers\Ordutegia_Controller@txertatu');
 
 Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editatu');
@@ -58,6 +60,7 @@ Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakut
 Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
 
 // Roles
+Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
 
 Route::get('roles/{taldea}','App\Http\Controllers\Roles_Controller@erakutsi');
 
@@ -71,15 +74,35 @@ Route::put('roles/ezabatu', 'App\Http\Controllers\Roles_Controller@ezabatu');
 
 Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 
-// Materiala
+Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@erakutsiMugimendua');
+
+Route::get('productos/mugimenduguztiak','App\Http\Controllers\Productos_Controller@erakutsiMugimenduGuztiak');
+
+Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
+
+Route::put('productos/editatu','App\Http\Controllers\Productos_Controller@editatu');
+
+// Categorias
+
+Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
+
+//Materiala
 
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
+
+Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsiErabili');
+
+Route::get('materiala/mugimenduak','App\Http\Controllers\material_Controller@erakutsiMugimenduak');
 
 Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
 
 Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu');
 
 Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
+
+Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
+
+Route::post('materialaF','App\Http\Controllers\material_Controller@reservar');
 
 // Tratamenduak
 

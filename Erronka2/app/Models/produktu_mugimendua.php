@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class produktu_mugimendua extends Model
 {
-    protected $table = 'produktu';
+    protected $table = 'produktu_mugimendua';
     public $timestamps = false;
 }

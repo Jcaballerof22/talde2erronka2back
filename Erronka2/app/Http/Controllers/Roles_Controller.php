@@ -9,6 +9,15 @@ use App\Models\taldea;
 
 class Roles_Controller extends Controller
 {
+    public function txandaHistorial(){
+        $resultado = txanda::join('langilea', 'txanda.id_langilea', '=', 'langilea.id')
+        ->select('txanda.mota', 'txanda.data', 'langilea.izena', 'langilea.abizenak')
+        ->orderByDesc('txanda.data')
+        ->get();
+
+        return json_encode($resultado);
+    }
+    
     public function erakutsi($taldea){
 
         $id = taldea::where('izena', $taldea)->pluck('kodea');
@@ -38,6 +47,8 @@ class Roles_Controller extends Controller
 
         return json_encode($emaitza);
     }
+
+    
 
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
