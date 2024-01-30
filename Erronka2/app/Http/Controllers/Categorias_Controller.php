@@ -9,7 +9,7 @@ class Categorias_Controller extends Controller
 {
     //
     public function erakutsi(){
-        $emaitza = Kategoria::select('izena')
+        $emaitza = Kategoria::select()
         ->get();
         return json_encode($emaitza);
     }
