@@ -12,7 +12,7 @@ class Productos_Controller extends Controller
     //
     public function erakutsi(){
         $emaitza = Produktua::join('kategoria', 'kategoria.ID', '=', 'produktua.id_kategoria')
-            ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.deskribapena', 'produktua.stock', 'kategoria.izena as kategoria')
+            ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.id_kategoria', 'produktua.deskribapena', 'produktua.stock', 'kategoria.izena as kategoria')
             ->whereNull('produktua.ezabatze_data') 
             ->orderBy('produktua.izena', 'asc')
             ->get();

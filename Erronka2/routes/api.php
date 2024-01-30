@@ -52,13 +52,12 @@ Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editat
 Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabatu');
 
 //Hitzordua
-Route::get('hitzordua/tratamenduak','App\Http\Controllers\hitzordua_Controller@tratamenduak'); 
 
 Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
 
 // Tickets
 
-Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
+Route::get('tickets','App\Http\Controllers\Tickets_Controller@erakutsi');
 
 // Roles
 Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
@@ -104,5 +103,16 @@ Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu
 Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
 
 Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
+
+// Tratamenduak
+
+Route::get('tratamenduak','App\Http\Controllers\tratamenduak_Controller@erakutsi'); 
+
+Route::post('tratamenduak/add','App\Http\Controllers\tratamenduak_Controller@addhitzorduTratamendu'); 
+
+Route::put('tratamenduak/remove','App\Http\Controllers\tratamenduak_Controller@removehitzorduTratamendu'); 
+
+Route::get('tratamenduak/{hitzorduaId}','App\Http\Controllers\tratamenduak_Controller@hitzorduTratamendu'); 
+
 
 
