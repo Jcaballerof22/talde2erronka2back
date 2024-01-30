@@ -57,7 +57,7 @@ Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakut
 
 // Tickets
 
-Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
+Route::get('tickets','App\Http\Controllers\Tickets_Controller@erakutsi');
 
 // Roles
 Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
