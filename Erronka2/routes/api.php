@@ -78,6 +78,8 @@ Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@era
 
 Route::get('productos/mugimenduguztiak','App\Http\Controllers\Productos_Controller@erakutsiMugimenduGuztiak');
 
+Route::post('productos/txertatu', 'App\Http\Controllers\Productos_Controller@txertatu');
+
 Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
 Route::put('productos/editatu','App\Http\Controllers\Productos_Controller@editatu');
