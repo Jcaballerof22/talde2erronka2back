@@ -67,7 +67,14 @@ class material_Controller extends Controller
         if ($emaitza->isNotEmpty()) {
             return response()->json($emaitza);
         } else {
-            return response()->json(['error' => 'No se encontraron resultados'], 404);
+            $emaitza = [[
+                    "id"=> 5,
+                    "id_langilea"=> "",
+                    "id_materiala"=> 4,
+                    "hasiera_data"=> "",
+                    "amaiera_data"=> ""
+            ]];
+            return response()->json($emaitza);
         }
     }
     
