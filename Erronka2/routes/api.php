@@ -67,6 +67,10 @@ Route::put('hitzordua/horduaAmaiera','App\Http\Controllers\hitzordua_Controller@
 
 Route::get('tickets','App\Http\Controllers\Tickets_Controller@erakutsi');
 
+Route::put('tickets/editatu', 'App\Http\Controllers\Tickets_Controller@editatu');
+
+Route::put('tickets/ezabatu', 'App\Http\Controllers\Tickets_Controller@ezabatu');
+
 // Roles
 Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
 
@@ -129,6 +133,20 @@ Route::post('tratamenduak/add','App\Http\Controllers\tratamenduak_Controller@add
 Route::put('tratamenduak/remove','App\Http\Controllers\tratamenduak_Controller@removehitzorduTratamendu'); 
 
 Route::get('tratamenduak/{hitzorduaId}','App\Http\Controllers\tratamenduak_Controller@hitzorduTratamendu'); 
+
+// Fichas
+
+Route::get('fichas','App\Http\Controllers\Fichas_Controller@erakutsi'); 
+
+Route::put('fichas/editatu', 'App\Http\Controllers\Fichas_Controller@editatu');
+
+Route::post('fichas/txertatu','App\Http\Controllers\Fichas_Controller@txertatu');
+
+Route::put('fichas/ezabatu','App\Http\Controllers\Fichas_Controller@ezabatu');
+
+
+
+
 
 
 
