@@ -39,6 +39,8 @@ Route::put('alumnos/ezabatu', 'App\Http\Controllers\alumnos_Controller@ezabatu')
 
 Route::put('alumnos/editatu', 'App\Http\Controllers\alumnos_Controller@editatu');
 
+Route::get('alumnos/{fecha}','App\Http\Controllers\alumnos_Controller@langileFecha');
+
 // Horarios
 
 Route::get('horarios','App\Http\Controllers\Ordutegia_Controller@erakutsi');
@@ -52,8 +54,14 @@ Route::put('horarios/editatu', 'App\Http\Controllers\Ordutegia_Controller@editat
 Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabatu');
 
 //Hitzordua
+Route::put('hitzordua/ezabatu','App\Http\Controllers\hitzordua_Controller@ezabatu'); 
 
 Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
+
+Route::put('hitzordua/horduaHasiera','App\Http\Controllers\hitzordua_Controller@horduaHasiera'); 
+
+Route::put('hitzordua/horduaAmaiera','App\Http\Controllers\hitzordua_Controller@horduaAmaiera'); 
+
 
 // Tickets
 
@@ -77,6 +85,8 @@ Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@erakutsiMugimendua');
 
 Route::get('productos/mugimenduguztiak','App\Http\Controllers\Productos_Controller@erakutsiMugimenduGuztiak');
+
+Route::post('productos/txertatu', 'App\Http\Controllers\Productos_Controller@txertatu');
 
 Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
