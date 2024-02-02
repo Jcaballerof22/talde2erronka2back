@@ -14,5 +14,6 @@ class Categorias_Controller extends Controller
         return json_encode($emaitza);
     }
     
+    
 
 }

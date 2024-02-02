@@ -11,8 +11,8 @@ class Productos_Controller extends Controller
 {
     //
     public function erakutsi(){
-        $emaitza = Produktua::join('kategoria', 'kategoria.ID', '=', 'produktua.id_kategoria')
-            ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.id_kategoria', 'produktua.deskribapena', 'produktua.stock', 'kategoria.izena as kategoria')
+        $emaitza = produktua::join('kategoria', 'kategoria.ID', '=', 'produktua.id_kategoria')
+            ->select('produktua.id', 'produktua.izena', 'produktua.marka', 'produktua.id_kategoria', 'produktua.deskribapena', 'produktua.stock', 'produktua.stock_alerta', 'kategoria.izena as kategoria')
             ->whereNull('produktua.ezabatze_data') 
             ->orderBy('produktua.izena', 'asc')
             ->get();
@@ -46,21 +46,34 @@ class Productos_Controller extends Controller
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
 
-        $kategoria = Kategoria::where('izena', $datos["kategoria"])->value('id');
-
         Produktua::where('produktua.id', $datos["id"])
         ->update([
             'eguneratze_data' => $hoy, 
-            'id' => $datos['id'], 
             'izena' => $datos['izena'], 
             'marka' => $datos['marka'],
-            'id_kategoria' => $kategoria,
+            'id_kategoria' => $datos['kategoria'],
             'deskribapena' => $datos['deskribapena'], 
-            'stock' => $datos['stock']
+            'stock' => $datos['stock'],
+            'stock_alerta' => $datos['stock_alerta']
         ]);
-        return "allOkk";
-   } 
+        return response('All OK', 200);
+    } 
 
+    public function txertatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+
+        $id = produktua::insertGetId([
+            'eguneratze_data' => $hoy,  
+            'izena' => $datos['izena'], 
+            'marka' => $datos['marka'],
+            'id_kategoria' => $datos['kategoria'],
+            'deskribapena' => $datos['deskribapena'], 
+            'stock' => $datos['stock'],
+            'stock_alerta' => $datos['stock_alerta']
+        ]);
+        return $id;
+    } 
 
 
 

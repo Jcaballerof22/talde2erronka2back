@@ -37,8 +37,8 @@ class alumnos_Controller extends Controller
             'kodea' =>  $datos["kodea"],
             'izena' =>  $datos["izena"],
             'abizenak' => $datos["abizenak"]
-         ]);
-         return $id;
+        ]);
+        return $id;
     } 
  
     public function editatu(Request $request){

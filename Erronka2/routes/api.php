@@ -65,7 +65,7 @@ Route::put('hitzordua/horduaAmaiera','App\Http\Controllers\hitzordua_Controller@
 
 // Tickets
 
-Route::get('tickets','App\Http\Controllers\tickets_Controller@erakutsi');
+Route::get('tickets','App\Http\Controllers\Tickets_Controller@erakutsi');
 
 // Roles
 Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
@@ -85,6 +85,8 @@ Route::get('productos','App\Http\Controllers\Productos_Controller@erakutsi');
 Route::get('productos/mugimendua','App\Http\Controllers\Productos_Controller@erakutsiMugimendua');
 
 Route::get('productos/mugimenduguztiak','App\Http\Controllers\Productos_Controller@erakutsiMugimenduGuztiak');
+
+Route::post('productos/txertatu', 'App\Http\Controllers\Productos_Controller@txertatu');
 
 Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
@@ -110,7 +112,7 @@ Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu
 
 Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
 
-Route::post('materialaF','App\Http\Controllers\material_Controller@reservar');
+Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
 
 // Tratamenduak
 
