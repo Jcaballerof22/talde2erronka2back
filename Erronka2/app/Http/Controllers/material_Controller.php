@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\materiala;
 use App\Models\materiala_erabili;
 use App\Models\langilea;
+use App\Models\taldea;
 
 class material_Controller extends Controller
 {
@@ -39,21 +40,6 @@ class material_Controller extends Controller
         return json_encode($emaitza);
     }
 
-    // public function reservar(){
-    //     $emaitza = materiala_erabili::select(
-    //         'hasiera_data',
-    //         'amaiera_data',
-    //         'id',
-    //         'id_langilea',
-    //         'id_materiala'
-    //     )
-    //     ->Leftjoin('langilea', 'id_langilea', '=', 'langilea.id')
-    //     ->Leftjoin('materiala','id_materiala', '=', 'materiala.id')
-    //     ->whereDate('sortze_data', '=', now()->toDateString())
-    //     ->latest()
-    //     ->first();
-    //     return json_encode($emaitza);
-    // }
     public function reservar($id){
     
         $emaitza = langilea::join('materiala_erabili', 'langilea.id', '=', 'materiala_erabili.id_langilea')
@@ -68,9 +54,9 @@ class material_Controller extends Controller
             return response()->json($emaitza);
         } else {
             $emaitza = [[
-                    "id"=> 5,
+                    "id"=> "",
                     "id_langilea"=> "",
-                    "id_materiala"=> 4,
+                    "id_materiala"=> "",
                     "hasiera_data"=> "",
                     "amaiera_data"=> ""
             ]];
@@ -93,7 +79,45 @@ class material_Controller extends Controller
              'izena' =>  $datos["izena"]
          ]);
          return $id;
-    } 
+    }
+
+    public function saberGrupo (){
+        $emaitza = taldea::select(
+            'kodea',
+            'izena'
+        )
+            ->whereNull('ezabatze_data')
+            ->orderBy('izena', 'asc')
+            ->get();
+    
+        return json_encode($emaitza);
+    }
+
+    public function saberAlumnos ($talde){
+        $emaitza = langilea::select(
+            'izena',
+            'abizenak',
+            'id'
+        )
+            ->where('kodea', $talde)
+            ->whereNull('ezabatze_data')
+            ->orderBy('izena', 'asc')
+            ->get();
+    
+        return json_encode($emaitza);
+    }
+
+    public function reservarMaterial(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        $id = materiala_erabili::insertGetId([
+            'id_materiala' => $datos["id_materiala"],
+            'id_langilea' => $datos["id_langilea"],
+            'hasiera_data' => $hoy,
+            'amaiera_data' => null
+        ]);
+        return "JEIIII";
+    }
  
     public function editatu(Request $request){
          $datos = $request->json()->all();

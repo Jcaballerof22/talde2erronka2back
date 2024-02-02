@@ -104,6 +104,12 @@ Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
 
 Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
 
+Route::post('materiala/reservar','App\Http\Controllers\material_Controller@reservarMaterial');
+
+Route ::get('materiala/grupos','App\Http\Controllers\material_Controller@saberGrupo');
+
+Route::get('materiala/alumnos/{kodea}','App\Http\Controllers\material_Controller@saberAlumnos');
+
 // Tratamenduak
 
 Route::get('tratamenduak','App\Http\Controllers\tratamenduak_Controller@erakutsi'); 
