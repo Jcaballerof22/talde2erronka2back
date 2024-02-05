@@ -120,6 +120,8 @@ Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar'
 
 Route::post('materiala/reservar','App\Http\Controllers\material_Controller@reservarMaterial');
 
+Route::put('materiala/devolver','App\Http\Controllers\material_Controller@devolver');
+
 Route ::get('materiala/grupos','App\Http\Controllers\material_Controller@saberGrupo');
 
 Route::get('materiala/alumnos/{kodea}','App\Http\Controllers\material_Controller@saberAlumnos');

@@ -9,4 +9,8 @@ class materiala_erabili extends Model
 {
     protected $table = 'materiala_erabili';
     public $timestamps = false;
+    protected $fillable = [
+        // Agrega otras columnas que permitas en la asignación masiva, si las hay
+        'eguneratze_data',
+    ];
 }

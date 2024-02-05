@@ -63,6 +63,22 @@ class material_Controller extends Controller
             return response()->json($emaitza);
         }
     }
+
+    public function devolver(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        $ultimoRegistro = materiala_erabili::where('id_materiala', $datos["id_materiala"])
+        ->latest("id");
+
+        if ($ultimoRegistro) {
+            // Actualizar la columna eguneratze_data del último registro encontrado
+            $ultimoRegistro->update(['amaiera_data' => $hoy]);
+            return "allOk";
+        } else {
+            // Manejar el caso en que no se encuentre ningún registro con ese materiala.id
+            return "No se encontraron registros con el materiala.id proporcionado.";
+        }
+    }
     
 
     public function ezabatu(Request $request){
