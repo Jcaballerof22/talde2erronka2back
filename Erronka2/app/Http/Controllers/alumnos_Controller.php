@@ -20,8 +20,8 @@ class alumnos_Controller extends Controller
             ->orderBy('izena', 'asc')
             ->get();
 
-        if(!isset($emaitza)){
-            return response('Ez dago daturik.', 400);
+        if($emaitza->isEmpty()){
+            return response()->json(['message' => 'Ez dago daturik.'], 404);
         }else{
             return response()->json($emaitza, 200);
         }
@@ -33,10 +33,10 @@ class alumnos_Controller extends Controller
         $hoy = date('Y-m-d H:i:s');
         $emaitza = langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
         
-        if(!isset($emaitza)){
-            return response('Ez da langilerik aurkitu.', 400);
+        if($emaitza->isEmpty()){
+            return response()->json(['message' => 'Ez da langilerik aurkitu.'], 404);
         }else{
-            return response('Langilea ezabatu da.', 200);
+            return response()->json(['message' => 'Langilea ezabatu da.'], 200);
         }
     }
 
@@ -47,18 +47,27 @@ class alumnos_Controller extends Controller
             'izena' =>  $datos["izena"],
             'abizenak' => $datos["abizenak"]
         ]);
-        return $id;
+
+        if($id){
+            return response()->json(['message' => 'Langilea txertatu da.'], 200);
+        }else{
+            return response()->json(['message' => 'Langilea ez da txertatu.'], 400);
+        }
     } 
  
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
         
-        langilea::where('langilea.id', $datos["id"])
+        $emaitza = langilea::where('langilea.id', $datos["id"])
         ->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 
         'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
         
-        return "allOkk";
+        if ($emaitza > 0) {
+            return response()->json(['message' => 'Langilea editatu da.'], 200);
+        } else {
+            return response()->json(['message' => 'Ez dira aldaketarik egin.'], 400);
+        }
     }
 
     public function langileFecha($fecha){
@@ -78,7 +87,7 @@ class alumnos_Controller extends Controller
                 ->get();
             return response(json_encode($emaitza),200);
         }else{
-            return response('no se encuentra el grupo',404);
+            return response('No se encuentra el grupo',404);
         }
         
     }

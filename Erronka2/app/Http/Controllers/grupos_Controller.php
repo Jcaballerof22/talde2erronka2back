@@ -17,30 +17,59 @@ class grupos_Controller extends Controller
         ->groupBy('taldea.izena','taldea.kodea')
         ->orderBy('langileak', 'desc')
         ->get();
-        return json_encode($emaitza);
+
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        taldea::where('taldea.kodea', $datos["kodea"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
-        return "allOk";
+
+        $emaitza = taldea::where('taldea.kodea', $datos["kodea"])
+        ->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+        
+        if ($actualizacion === false) {
+            return response()->json(['message' => 'Ez dira daturik ezabatu.'], 400);
+        } else {
+            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
+        }
     }
 
     public function txertatu(Request $request){
-       $datos = $request->json()->all();
+        $datos = $request->json()->all();
+
         $id = taldea::insertGetId([
             'izena' =>  $datos["izena"]
             // ... otras columnas y valores
         ]);
-        return $id;
+
+        if ($id) {
+            return response()->json(['id' => $id], 200);
+        } else {
+            return response()->json(['message' => 'Ez dira daturik txertatu.'], 400);
+        }
     } 
 
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        taldea::where('taldea.kodea', $datos["kodea"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena']]);
-        return "allOkk";
-     } 
+
+        $emaitza = taldea::where('taldea.kodea', $datos["kodea"])
+        ->update([
+            'eguneratze_data' => $hoy, 
+            'kodea' => $datos['kodea'], 
+            'izena' => $datos['izena']
+        ]);
+
+        if ($emaitza) {
+            return response('Datuak editatu dira.', 200);
+        } else {
+            return response('Ezin izan dira datuak editatu.', 400);
+        }
+    } 
 
 }

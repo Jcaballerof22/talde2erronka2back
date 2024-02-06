@@ -23,7 +23,11 @@ class material_Controller extends Controller
             ->get();
         
         // Bueltatzen duena json bat da gero front-ak irakurtzeko  
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Kontuan izateko zenbat bider erabili diren materialak historialean, Select bat Count batekin

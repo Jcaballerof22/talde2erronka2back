@@ -10,7 +10,12 @@ class Fichas_Controller extends Controller
     // Bezero fitxen datuak lortzeko metodoa
     public function erakutsi() {
         $emaitza = bezero_fitxa::whereNull('ezabatze_data')->get();
-        return response()->json($emaitza);
+
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira fitxarik aurkitu.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Fitxak editatzeko metodoa
@@ -24,8 +29,20 @@ class Fichas_Controller extends Controller
             $azal_sentikorra = 'E';
         }
 
-        bezero_fitxa::where('id', $datos['id'])->update(['eguneratze_data' => $hoy, 'izena' => $datos['izena'], 'abizena' => $datos['abizena'], 'telefonoa' => $datos['telefonoa'], 'azal_sentikorra' => $azal_sentikorra]);
-        return "allOkk";
+        $emaitza = bezero_fitxa::where('id', $datos['id'])
+        ->update([
+            'eguneratze_data' => $hoy, 
+            'izena' => $datos['izena'], 
+            'abizena' => $datos['abizena'], 
+            'telefonoa' => $datos['telefonoa'], 
+            'azal_sentikorra' => $azal_sentikorra
+        ]);
+        
+        if ($emaitza > 0) {
+            return response()->json(['message' => 'Datuak editatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ez dira editatzeko daturik aurkitu.'], 404);
+        }
     } 
 
     // Fitxa berri bat txertatzeko metodoa
@@ -39,25 +56,33 @@ class Fichas_Controller extends Controller
             $azal_sentikorra = 'E';
         }
 
-        bezero_fitxa::insert([
+        $emaitza = bezero_fitxa::insert([
             'izena' => $datos['izena'],
             'abizena' => $datos['abizena'],
             'telefonoa' => $datos['telefonoa'],
             'azal_sentikorra' => $azal_sentikorra,
             'eguneratze_data' => $hoy
         ]);
-        return response()->json(['message' => 'Operación exitosa']);
+
+        if ($emaitza) {
+            return response()->json(['message' => 'Datuak txertatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan dira daturik txertatu.'], 400);
+        }
     }
 
     // Fitxak ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
-
         $hoy = date('Y-m-d');
 
-        bezero_fitxa::where('id', $datos["id"])
+        $emaitza = bezero_fitxa::where('id', $datos["id"])
         ->update(['ezabatze_data' => $hoy]);
 
-        return response()->json(['message' => 'Operación exitosa']);
+        if ($emaitza) {
+            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan dira daturik ezabatu.'], 400);
+        }    
     }
 }
