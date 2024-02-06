@@ -19,16 +19,25 @@ class alumnos_Controller extends Controller
             ->whereNull('ezabatze_data')
             ->orderBy('izena', 'asc')
             ->get();
-    
-        return json_encode($emaitza);
+
+        if(!isset($emaitza)){
+            return response('Ez dago daturik.', 400);
+        }else{
+            return response()->json($emaitza, 200);
+        }
     }
     
 
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
-        return "allOk";
+        $emaitza = langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+        
+        if(!isset($emaitza)){
+            return response('Ez da langilerik aurkitu.', 400);
+        }else{
+            return response('Langilea ezabatu da.', 200);
+        }
     }
 
     public function txertatu(Request $request){
@@ -44,9 +53,13 @@ class alumnos_Controller extends Controller
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        langilea::where('langilea.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
+        
+        langilea::where('langilea.id', $datos["id"])
+        ->update(['eguneratze_data' => $hoy, 'kodea' => $datos['kodea'], 
+        'izena' => $datos['izena'], 'abizenak' => $datos['abizenak']]);
+        
         return "allOkk";
-    } 
+    }
 
     public function langileFecha($fecha){
         // Para el json
