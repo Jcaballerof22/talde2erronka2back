@@ -102,28 +102,28 @@ Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
 
 //Materiala
 
+
+//'get' bidezko deia, rutan 'materiala' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsi' funtzioari
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
-
+//'get' bidezko deia, rutan 'materiala/erabili' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsiErabili' funtzioari
 Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsiErabili');
-
+//'get' bidezko deia, rutan 'materiala/mugimenduak' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsiMugimenduak' funtzioari
 Route::get('materiala/mugimenduak','App\Http\Controllers\material_Controller@erakutsiMugimenduak');
-
+//'post' bidezko deia, rutan 'materiala/txertatu' material_Controller kontroleadoreari deitzeko eta honetako 'txertatu' funtzioari
 Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
-
+//'put' bidezko deia, rutan 'materiala/editatu' material_Controller kontroleadoreari deitzeko eta honetako 'editatu' funtzioari
 Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu');
-
+//'put' bidezko deia, rutan 'materiala/ezabatu' material_Controller kontroleadoreari deitzeko eta honetako 'ezabatu' funtzioari
 Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
-
-Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
-
+//'get' bidezko deia, rutan 'materialaF/{id}' material_Controller kontroleadoreari deitzeko eta honetako 'reservar' funtzioari
 Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
-
+//'post' bidezko deia, rutan 'materiala/reservar' material_Controller kontroleadoreari deitzeko eta honetako 'reservarMaterial' funtzioari
 Route::post('materiala/reservar','App\Http\Controllers\material_Controller@reservarMaterial');
-
+//'put' bidezko deia, rutan 'materiala/devolver' material_Controller kontroleadoreari deitzeko eta honetako 'devolver' funtzioari
 Route::put('materiala/devolver','App\Http\Controllers\material_Controller@devolver');
-
+//'get' bidezko deia, rutan 'materiala/grupos' material_Controller kontroleadoreari deitzeko eta honetako 'saberGrupo' funtzioari
 Route ::get('materiala/grupos','App\Http\Controllers\material_Controller@saberGrupo');
-
+//'get' bidezko deia, rutan 'materiala/alumnos/{kodea}' material_Controller kontroleadoreari deitzeko eta honetako 'saberAlumnos' funtzioari
 Route::get('materiala/alumnos/{kodea}','App\Http\Controllers\material_Controller@saberAlumnos');
 
 // Tratamenduak
