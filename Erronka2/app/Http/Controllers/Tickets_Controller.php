@@ -7,6 +7,7 @@ use App\Models\ticket_lerroa;
 
 class Tickets_Controller extends Controller
 {
+    // Ticket guztien datuak lortzeko metodoa
     public function erakutsi(){
         $emaitza = ticket_lerroa::join('hitzordua', 'ticket_lerroa.id_hitzordua', '=', 'hitzordua.id')
         ->join('tratamendua', 'ticket_lerroa.id_tratamendua', '=', 'tratamendua.id')
@@ -16,6 +17,7 @@ class Tickets_Controller extends Controller
         return json_encode($emaitza);
     }
 
+    // Ticketa editatzeko metodoa
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -24,6 +26,7 @@ class Tickets_Controller extends Controller
         return "allOkk";
     } 
 
+    // Ticketa ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
 
