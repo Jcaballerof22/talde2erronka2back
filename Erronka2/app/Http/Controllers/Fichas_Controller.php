@@ -7,11 +7,13 @@ use App\Models\bezero_fitxa;
 
 class Fichas_Controller extends Controller
 {
+    // Bezero fitxen datuak lortzeko metodoa
     public function erakutsi() {
         $emaitza = bezero_fitxa::whereNull('ezabatze_data')->get();
         return response()->json($emaitza);
     }
 
+    // Fitxak editatzeko metodoa
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -26,6 +28,7 @@ class Fichas_Controller extends Controller
         return "allOkk";
     } 
 
+    // Fitxa berri bat txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -46,6 +49,7 @@ class Fichas_Controller extends Controller
         return response()->json(['message' => 'Operación exitosa']);
     }
 
+    // Fitxak ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
 
