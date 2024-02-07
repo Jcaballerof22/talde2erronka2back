@@ -8,6 +8,7 @@ use App\Models\ordutegia;
 
 class Ordutegia_Controller extends Controller
 {
+    // Ordutegien datuak lortzeko metodoa
     public function erakutsi() {
         $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA', 'ordutegia.HASIERA_DATA', 'ordutegia.AMAIERA_DATA', 'ordutegia.EZABATZE_DATA')
         ->join('taldea', 'ordutegia.KODEA', '=', 'taldea.KODEA')
@@ -16,7 +17,7 @@ class Ordutegia_Controller extends Controller
         return json_encode($emaitza);
     }
 
-    // Sacar que talde está puesto hoy
+    // Zein talde dagoen gaur lortzeko metodoa
     public function erakutsiTaldea(){
         $eguna = date('N');
 
@@ -29,6 +30,7 @@ class Ordutegia_Controller extends Controller
         return json_encode($emaitza);
     }
 
+    // Ordutegia editatzeko metodoa
     public function editatu(Request $request){
         
         try{
@@ -57,6 +59,7 @@ class Ordutegia_Controller extends Controller
         }
     }
 
+    // Ordutegia ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -69,6 +72,7 @@ class Ordutegia_Controller extends Controller
         return response()->json(['message' => 'Operación exitosa']);
     }
 
+    // Ordutegi berri bat txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();
 

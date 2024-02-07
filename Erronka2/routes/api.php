@@ -72,6 +72,10 @@ Route::post('hitzordua/txertatu','App\Http\Controllers\hitzordua_Controller@txer
 
 Route::get('tickets','App\Http\Controllers\Tickets_Controller@erakutsi');
 
+Route::put('tickets/editatu', 'App\Http\Controllers\Tickets_Controller@editatu');
+
+Route::put('tickets/ezabatu', 'App\Http\Controllers\Tickets_Controller@ezabatu');
+
 // Roles
 Route::get('roles/historial','App\Http\Controllers\Roles_Controller@txandaHistorial');
 
@@ -106,21 +110,29 @@ Route::get('kategoria','App\Http\Controllers\Categorias_Controller@erakutsi');
 
 //Materiala
 
+
+//'get' bidezko deia, rutan 'materiala' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsi' funtzioari
 Route::get('materiala','App\Http\Controllers\material_Controller@erakutsi');
-
+//'get' bidezko deia, rutan 'materiala/erabili' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsiErabili' funtzioari
 Route::get('materiala/erabili','App\Http\Controllers\material_Controller@erakutsiErabili');
-
+//'get' bidezko deia, rutan 'materiala/mugimenduak' material_Controller kontroleadoreari deitzeko eta honetako 'erakutsiMugimenduak' funtzioari
 Route::get('materiala/mugimenduak','App\Http\Controllers\material_Controller@erakutsiMugimenduak');
-
+//'post' bidezko deia, rutan 'materiala/txertatu' material_Controller kontroleadoreari deitzeko eta honetako 'txertatu' funtzioari
 Route::post('materiala/txertatu','App\Http\Controllers\material_Controller@txertatu');
-
+//'put' bidezko deia, rutan 'materiala/editatu' material_Controller kontroleadoreari deitzeko eta honetako 'editatu' funtzioari
 Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu');
-
+//'put' bidezko deia, rutan 'materiala/ezabatu' material_Controller kontroleadoreari deitzeko eta honetako 'ezabatu' funtzioari
 Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
-
-Route::get('materialaR','App\Http\Controllers\material_Controller@reservar');
-
+//'get' bidezko deia, rutan 'materialaF/{id}' material_Controller kontroleadoreari deitzeko eta honetako 'reservar' funtzioari
 Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
+//'post' bidezko deia, rutan 'materiala/reservar' material_Controller kontroleadoreari deitzeko eta honetako 'reservarMaterial' funtzioari
+Route::post('materiala/reservar','App\Http\Controllers\material_Controller@reservarMaterial');
+//'put' bidezko deia, rutan 'materiala/devolver' material_Controller kontroleadoreari deitzeko eta honetako 'devolver' funtzioari
+Route::put('materiala/devolver','App\Http\Controllers\material_Controller@devolver');
+//'get' bidezko deia, rutan 'materiala/grupos' material_Controller kontroleadoreari deitzeko eta honetako 'saberGrupo' funtzioari
+Route ::get('materiala/grupos','App\Http\Controllers\material_Controller@saberGrupo');
+//'get' bidezko deia, rutan 'materiala/alumnos/{kodea}' material_Controller kontroleadoreari deitzeko eta honetako 'saberAlumnos' funtzioari
+Route::get('materiala/alumnos/{kodea}','App\Http\Controllers\material_Controller@saberAlumnos');
 
 // Tratamenduak
 
@@ -131,6 +143,20 @@ Route::post('tratamenduak/add','App\Http\Controllers\tratamenduak_Controller@add
 Route::put('tratamenduak/remove','App\Http\Controllers\tratamenduak_Controller@removehitzorduTratamendu'); 
 
 Route::get('tratamenduak/{hitzorduaId}','App\Http\Controllers\tratamenduak_Controller@hitzorduTratamendu'); 
+
+// Fichas
+
+Route::get('fichas','App\Http\Controllers\Fichas_Controller@erakutsi'); 
+
+Route::put('fichas/editatu', 'App\Http\Controllers\Fichas_Controller@editatu');
+
+Route::post('fichas/txertatu','App\Http\Controllers\Fichas_Controller@txertatu');
+
+Route::put('fichas/ezabatu','App\Http\Controllers\Fichas_Controller@ezabatu');
+
+
+
+
 
 
 
