@@ -56,11 +56,16 @@ Route::put('horarios/ezabatu', 'App\Http\Controllers\Ordutegia_Controller@ezabat
 //Hitzordua
 Route::put('hitzordua/ezabatu','App\Http\Controllers\hitzordua_Controller@ezabatu'); 
 
-Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
+Route::get('hitzordua/horduDisp/{data}/{hasiera_ordua}/{amaiera_ordua}','App\Http\Controllers\hitzordua_Controller@dispoHora'); 
 
 Route::put('hitzordua/horduaHasiera','App\Http\Controllers\hitzordua_Controller@horduaHasiera'); 
 
 Route::put('hitzordua/horduaAmaiera','App\Http\Controllers\hitzordua_Controller@horduaAmaiera'); 
+
+Route::get('hitzordua/{fecha}','App\Http\Controllers\hitzordua_Controller@erakutsi'); 
+
+Route::post('hitzordua/txertatu','App\Http\Controllers\hitzordua_Controller@txertatu'); 
+
 
 
 // Tickets
@@ -91,6 +96,9 @@ Route::post('productos/txertatu', 'App\Http\Controllers\Productos_Controller@txe
 Route::put('productos/ezabatu', 'App\Http\Controllers\Productos_Controller@ezabatu');
 
 Route::put('productos/editatu','App\Http\Controllers\Productos_Controller@editatu');
+
+Route::post('productos/erosi', 'App\Http\Controllers\Productos_Controller@mugimenduBerria');
+
 
 // Categorias
 

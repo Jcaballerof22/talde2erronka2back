@@ -66,7 +66,7 @@ class alumnos_Controller extends Controller
             return response(json_encode($emaitza),200);
         }else{
             return response('no se encuentra el grupo',404);
-        }
-        
+        }   
     }
+    
 }

@@ -54,5 +54,36 @@ class hitzordua_Controller extends Controller
         return "allOk";
     }
 
+    public function dispoHora($data, $hasiera_ordua, $amaiera_ordua){
+        $emaitza = hitzordua::select()
+        ->whereNull('hitzordua.ezabatze_data')
+        ->where('hitzordua.amaiera_ordua', '>=', $amaiera_ordua)
+        ->where('hitzordua.hasiera_ordua', '<=', $hasiera_ordua)
+        ->where('hitzordua.data', "=", $data)
+        ->get();
+        return json_encode($emaitza);
+        
+    }
+
+    public function txertatu(Request $request){
+        $datos = $request->json()->all();
+        if ($datos["etxekoa"]) {
+            $etxekoa = 'E';
+        }else {
+            $etxekoa = 'K';
+        }
+        $id = hitzordua::insertGetId([
+            'izena'=> $datos["izena"],
+            'telefonoa'=> $datos["telefonoa"],
+            'eserlekua'=> 0,
+            'deskribapena'=> $datos["deskribapena"],
+            'hasiera_ordua'=> $datos["hasiera_ordua"],
+            'amaiera_ordua'=> $datos["amaiera_ordua"],
+            'id_langilea'=> $datos["langilea"],
+            'etxekoa'=> $etxekoa,
+            'data'=> $datos["data"],
+        ]);
+        return $id;
+    }
 
 }

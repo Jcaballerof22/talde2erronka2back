@@ -75,6 +75,35 @@ class Productos_Controller extends Controller
         return $id;
     } 
 
+    //Probar///////////////////////////////////////////////////////
+    public function mugimenduBerria(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        try {
+            Produktua::where('produktua.id', $datos["id_produktua"])
+            ->update([
+                'eguneratze_data' => $hoy, 
+                'stock' => Produktua::raw('stock - ' . $datos['kopurua'])
+            ]);
+        } catch (\Throwable $th) {
+            return response('Error al bajar el stock del producto: '.$datos["id_produktua"], 500);
+        }
+
+        try{
+            
+            produktu_mugimendua::insert([
+                'id_produktua' => $datos['id_produktua'],
+                'id_langilea' => $datos['id_langilea'],
+                'data' => $hoy,
+                'kopurua' => $datos['kopurua']
+            ]);
+            
+            return response('All OK', 200);
+        }catch(\Throwable $th){
+            return response('error al insertar movimiento del producto: '.$datos["id_produktua"], 500);
+        }
+        
+    }
 
 
 }
