@@ -109,16 +109,13 @@ class Productos_Controller extends Controller
             'stock_alerta' => $datos['stock_alerta']
         ]);
 
-
-
-}
         if ($id) {
             return response()->json(['message' => 'Datuak txertatu dira.', 'id' => $id], 200);
         } else {
             return response()->json(['message' => 'Ezin izan dira datuak txertatu.'], 400);
         }
     }
-}
+
     //Probar///////////////////////////////////////////////////////
     public function mugimenduBerria(Request $request){
         $datos = $request->json()->all();
