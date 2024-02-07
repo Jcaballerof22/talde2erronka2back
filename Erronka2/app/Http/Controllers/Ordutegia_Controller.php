@@ -14,7 +14,11 @@ class Ordutegia_Controller extends Controller
         ->join('taldea', 'ordutegia.KODEA', '=', 'taldea.KODEA')
         ->get();
     
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Zein talde dagoen gaur lortzeko metodoa
@@ -27,7 +31,11 @@ class Ordutegia_Controller extends Controller
         ->select('taldea.izena')
         ->get();
 
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Ordutegia editatzeko metodoa
@@ -64,12 +72,17 @@ class Ordutegia_Controller extends Controller
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
 
-        ordutegia::where('eguna', $datos["eguna"])
+        $emaitza = ordutegia::where('eguna', $datos["eguna"])
         ->update([
             'eguneratze_data' => $hoy,
             'ezabatze_data' => $hoy
         ]);
-        return response()->json(['message' => 'Operación exitosa']);
+
+        if ($emaitza > 0) {
+            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ez dira daturik ezabatu.'], 404);
+        }    
     }
 
     // Ordutegi berri bat txertatzeko metodoa
@@ -83,7 +96,7 @@ class Ordutegia_Controller extends Controller
         $fechaInicio = $datos["fechaInicio"];
         $fechaFin = $datos["fechaFin"];
 
-        ordutegia::insert([
+        $emaitza = ordutegia::insert([
             'kodea' => $taldeaKodea,
             'eguna' => $eguna,
             'hasiera_data' => $fechaInicio,
@@ -92,7 +105,12 @@ class Ordutegia_Controller extends Controller
             'hasiera_ordua' => "00:00:00",
             'amaiera_ordua' => "00:00:00"
         ]);
-        return response()->json(['message' => 'Operación exitosa']);
+
+        if ($emaitza) {
+            return response()->json(['message' => 'Datuak txertatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ez dira datuak txertatu.'], 400);
+        }
     }
 }
 

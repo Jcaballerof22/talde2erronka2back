@@ -14,7 +14,12 @@ class Tickets_Controller extends Controller
         ->whereNull('ticket_lerroa.ezabatze_data')
         ->select('hitzordua.izena AS bezero_izena', 'hitzordua.data', 'tratamendua.izena AS tratamendu_izena', 'ticket_lerroa.prezioa', 'ticket_lerroa.id')
         ->get();
-        return json_encode($emaitza);
+        
+        if ($emaitza->isNotEmpty()) {
+            return response()->json($emaitza, 200);
+        } else {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 404);
+        }
     }
 
     // Ticketa editatzeko metodoa
@@ -22,8 +27,13 @@ class Tickets_Controller extends Controller
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
 
-        ticket_lerroa::where('id', $datos['id'])->update(['id_tratamendua' => $datos['id_tratamendua'], 'prezioa' => $datos['prezioa'], 'eguneratze_data' => $hoy]);
-        return "allOkk";
+        $emaitza = ticket_lerroa::where('id', $datos['id'])->update(['id_tratamendua' => $datos['id_tratamendua'], 'prezioa' => $datos['prezioa'], 'eguneratze_data' => $hoy]);
+        
+        if ($emaitza) {
+            return response('Datuak editatu dira.', 200);
+        } else {
+            return response('Ezin izan dira datuak aldatu.', 400);
+        }
     } 
 
     // Ticketa ezabatzeko metodoa
@@ -32,9 +42,13 @@ class Tickets_Controller extends Controller
 
         $hoy = date('Y-m-d');
 
-        ticket_lerroa::where('id', $datos["id"])
+        $emaitza = ticket_lerroa::where('id', $datos["id"])
         ->update(['ezabatze_data' => $hoy]);
 
-        return response()->json(['message' => 'Operación exitosa']);
+        if ($emaitza) {
+            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan dira datuak ezabatu.'], 400);
+        }
     }
 }

@@ -38,18 +38,31 @@ class material_Controller extends Controller
         ->get();
 
         // Bueltatzen duena json bat da gero front-ak irakurtzeko 
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dago daturik.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Kontuan izateko materiala nork izan duen eta beraien mugimenduak historialean, Select bat erabilita
     public function erakutsiMugimenduak(){
         $emaitza = materiala_erabili::join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
         ->join('langilea', 'materiala_erabili.id_langilea', '=', 'langilea.id')
-        ->select('materiala.izena AS materiala', 'langilea.izena', 'langilea.abizenak', 'materiala_erabili.hasiera_data', 'materiala_erabili.amaiera_data')
+        ->select(
+            'materiala.izena AS materiala', 
+            'langilea.izena', 
+            'langilea.abizenak', 
+            'materiala_erabili.hasiera_data', 
+            'materiala_erabili.amaiera_data')
         ->get();
 
         // Bueltatzen duena json bat da gero front-ak irakurtzeko 
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dago daturik.'], 404);
+        } else {
+            return response()->json($emaitza, 200);
+        }
     }
 
     // Jakin ahal izateko material bat libre edo okupaturik dagoen, ez bada inoiz erreserbatu, hutsik bueltatuko du fron-era, Select bat baldintza desberdinekin eta bakarrik erregistro bat hartzen duena, id handiena duena
@@ -57,7 +70,12 @@ class material_Controller extends Controller
     
         $emaitza = langilea::join('materiala_erabili', 'langilea.id', '=', 'materiala_erabili.id_langilea')
             ->join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
-            ->select('materiala_erabili.id', 'materiala_erabili.id_langilea', 'materiala_erabili.id_materiala', 'materiala_erabili.hasiera_data', 'materiala_erabili.amaiera_data')
+            ->select(
+                'materiala_erabili.id', 
+                'materiala_erabili.id_langilea', 
+                'materiala_erabili.id_materiala', 
+                'materiala_erabili.hasiera_data', 
+                'materiala_erabili.amaiera_data')
             ->where('materiala_erabili.id_materiala', $id)
             ->orderByDesc('materiala_erabili.id')
             ->limit(1)
@@ -90,9 +108,9 @@ class material_Controller extends Controller
 
         if ($ultimoRegistro) {
             $ultimoRegistro->update(['amaiera_data' => $hoy]);
-            return "allOk";
+            return response()->json(['message' => 'Datuak aldatu dira.'], 200);
         } else {
-            return "ERROR";
+            return response()->json(['message' => 'Ezin izan dira datuak aldatu.'], 404);
         }
     }
     
@@ -100,8 +118,13 @@ class material_Controller extends Controller
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
-        materiala::where('materiala.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
-        return "allOk";
+        $emaitza = materiala::where('materiala.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+
+        if ($emaitza > 0) {
+            return response("Materiala ezabatu da.", 200);
+        } else {
+            return response()->json(['message' => 'Ez da ezabatzeko materialik aurkitu.'], 400);
+        }
     }
 
     // Material berria sartzeko funtzioa,insert bat "etiketa" eta "izena" hartzen dutenak
@@ -112,7 +135,11 @@ class material_Controller extends Controller
              'izena' =>  $datos["izena"]
          ]);
          // Bueltatzen duena aldaketak izan dituen materialaren id-a da, gero front-ean kontuan izateko
-         return $id;
+         if ($id) {
+            return response()->json(['id' => $id], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan da materiala txertatu.'], 400);
+        }
     }
 
     // Erreserba egiterakoan zein talde dauden jakiteko Select bat, kontuan izanda "ezabatze_data" ez izatea null
@@ -125,7 +152,11 @@ class material_Controller extends Controller
             ->orderBy('izena', 'asc')
             ->get();
         // Bueltatzen duena json bat da gero front-ak irakurtzeko 
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira talderik aurkitu.'], 400);
+        }else{
+            return json_encode($emaitza);
+        }
     }
 
     // Erreserba egiterakoan zein ikasle dauden jakiteko Select bat, kontuan izanda "ezabatze_data" ez izatea null
@@ -141,7 +172,11 @@ class material_Controller extends Controller
             ->get();
     
         // Bueltatzen duena json bat da gero front-ak irakurtzeko 
-        return json_encode($emaitza);
+        if ($emaitza->isEmpty()) {
+            return response()->json(['message' => 'Ez dira daturik aurkitu.'], 400);
+        } else {
+            return response()->json($emaitza);
+        }
     }
 
     // Materiala erreserbatzeko funtzioa, non insert bat egiten den kontuan izanda "id_materiala", "id_langilea", jarrita noiz izan den "hasiera_data"-n eta "amaiera_data" null jarrita
@@ -155,15 +190,25 @@ class material_Controller extends Controller
             'amaiera_data' => null
         ]);
         // Bueltatzen duena aldaketak izan dituen materialaren id-a da, gero front-ean kontuan izateko
-        return $id;
+        if ($id) {
+            return response()->json(['id' => $id], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan da materiala erreserbatu.'], 400);
+        }
     }
  
     // Materiala editatu ahal izateko funtzioa, update bat egiten duena kontuan izanda "materiala.id"
     public function editatu(Request $request){
          $datos = $request->json()->all();
          $hoy = date('Y-m-d H:i:s');
-         materiala::where('materiala.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'etiketa' => $datos['etiketa'], 'izena' => $datos['izena']]);
-         return "allOkk";
+         
+         $emaitza = materiala::where('materiala.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'etiketa' => $datos['etiketa'], 'izena' => $datos['izena']]);
+        
+         if ($emaitza) {
+            return response()->json(['message' => 'Datuak aldatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan dira datuak aldatu.'], 400);
+        }
     }
 }
 
