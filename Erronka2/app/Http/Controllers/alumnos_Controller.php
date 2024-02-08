@@ -8,7 +8,14 @@ use App\Models\ordutegia;
 
 class alumnos_Controller extends Controller
 {
-    //
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/alumnos",
+     *     tags={"Langileak"},
+     *     summary="Langileen datuak lortu",
+     *     @OA\Response(response="200", description="Langileen datuak")
+     * )
+     */
     public function erakutsi() {
         $emaitza = Langilea::select(
             'izena',
@@ -27,19 +34,74 @@ class alumnos_Controller extends Controller
         }
     }
     
-
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu",
+     *     tags={"Langileak"},
+     *     summary="Langileak ezabatu",
+     *     @OA\Response(response="200", description="Langilea ezabatu da"),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string",
+     *                     example=""
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
         $emaitza = langilea::where('langilea.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
         
-        if($emaitza->isEmpty()){
+        if($emaitza > 0){
             return response()->json(['message' => 'Ez da langilerik aurkitu.'], 404);
         }else{
             return response()->json(['message' => 'Langilea ezabatu da.'], 200);
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/alumnos/txertatu",
+     *     tags={"Langileak"},
+     *     summary="Langileak txertatu",
+     *     @OA\Response(response="200", description="Langilea txertatu da"),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+ *                 type="object",
+ *                 required={"kodea", "izena", "abizenak"},
+ *                 @OA\Property(
+ *                     property="kodea",
+ *                     type="integer",
+ *                     example="1"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="izena",
+ *                     type="string",
+ *                     example="John"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="abizenak",
+ *                     type="string",
+ *                     example="Doe"
+ *                 )
+ *             )
+     *         )
+     *     )
+     * )
+     */
     public function txertatu(Request $request){
         $datos = $request->json()->all();
         $id = langilea::insertGetId([
@@ -55,6 +117,44 @@ class alumnos_Controller extends Controller
         }
     } 
  
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/alumnos/editatu",
+     *     tags={"Langileak"},
+     *     summary="Langileak editatu",
+     *     @OA\Response(response="200", description="Langilea editatu da"),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id", "kodea", "izena", "abizenak"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example=1
+     *                 ),
+     *                 @OA\Property(
+     *                     property="kodea",
+     *                     type="integer",
+     *                     example="1"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="John"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="abizenak",
+     *                     type="string",
+     *                     example="Doe"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -70,6 +170,14 @@ class alumnos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/alumnos/{fecha}",
+     *     tags={"Langileak"},
+     *     summary="Langileak lortu",
+     *     @OA\Response(response="200", description="Langilea lortu da")
+     * )
+     */
     public function langileFecha($fecha){
         // Para el json
         $eguna = date('N', strtotime($fecha));

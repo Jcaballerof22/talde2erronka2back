@@ -1,0 +1,1758 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs For Thrift Store",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/talde2erronka2back/Erronka2/public/api/kategoria": {
+            "get": {
+                "tags": [
+                    "Kategoriak"
+                ],
+                "summary": "Kategorien datuak lortu",
+                "operationId": "1732ffcc9f79c69fef7a1f67bc7e077a",
+                "responses": {
+                    "200": {
+                        "description": "Datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/fichas": {
+            "get": {
+                "tags": [
+                    "Fitxak"
+                ],
+                "summary": "Fitxen datuak lortu",
+                "operationId": "c240d86ff28b2313f9c4de7c94ff2421",
+                "responses": {
+                    "200": {
+                        "description": "Fitxen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/fichas/editatu": {
+            "put": {
+                "tags": [
+                    "Fitxak"
+                ],
+                "summary": "Fitxak editatu",
+                "operationId": "866caf7f80ea1ce95fdfbfe3ed72f523",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "izena",
+                                    "abizena",
+                                    "telefonoa",
+                                    "azal_sentikorra"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "izena": {
+                                        "type": "string",
+                                        "example": "Juan"
+                                    },
+                                    "abizena": {
+                                        "type": "string",
+                                        "example": "García"
+                                    },
+                                    "telefonoa": {
+                                        "type": "string",
+                                        "example": "555123456"
+                                    },
+                                    "azal_sentikorra": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Fitxa editatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/fichas/txertatu": {
+            "post": {
+                "tags": [
+                    "Fitxak"
+                ],
+                "summary": "Fitxak txertatu",
+                "operationId": "55be0dc95abbc597449e2530f8ca57ca",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena",
+                                    "abizena",
+                                    "telefonoa",
+                                    "azal_sentikorra"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "type": "string",
+                                        "example": "Juan"
+                                    },
+                                    "abizena": {
+                                        "type": "string",
+                                        "example": "García"
+                                    },
+                                    "telefonoa": {
+                                        "type": "string",
+                                        "example": "555123456"
+                                    },
+                                    "azal_sentikorra": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Fitxa txertatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/fichas/ezabatu": {
+            "put": {
+                "tags": [
+                    "Fitxak"
+                ],
+                "summary": "Fitxak ezabatu",
+                "operationId": "4f85d7331a7cdfbe3f437817464b5e03",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Fitxa ezabatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/horarios": {
+            "get": {
+                "tags": [
+                    "Ordutegia"
+                ],
+                "summary": "Ordutegien datuak lortu",
+                "operationId": "547e6eb8cdf521df29fa2643f8d210f6",
+                "responses": {
+                    "200": {
+                        "description": "Ordutegien datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/horarios/taldea": {
+            "get": {
+                "tags": [
+                    "Ordutegia"
+                ],
+                "summary": "Zein talde dagoen gaur lortzeko metodoa",
+                "operationId": "dbc5e1cdf415f77ef66056412b3390b2",
+                "responses": {
+                    "200": {
+                        "description": "Ordutegien datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/horarios/editatu": {
+            "put": {
+                "tags": [
+                    "Ordutegia"
+                ],
+                "summary": "Ordutegia editatzeko metodoa",
+                "operationId": "336cda8d755fe31465a85ddbddac7ec4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena",
+                                    "eguna",
+                                    "fechaInicio",
+                                    "fechaFin"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "description": "Taldearen izena",
+                                        "type": "string",
+                                        "example": "example_izena"
+                                    },
+                                    "eguna": {
+                                        "description": "Eguna",
+                                        "type": "string",
+                                        "example": "example_eguna"
+                                    },
+                                    "fechaInicio": {
+                                        "description": "Hasiera data",
+                                        "type": "string",
+                                        "example": "2024-02-15 08:00:00"
+                                    },
+                                    "fechaFin": {
+                                        "description": "Amaiera data",
+                                        "type": "string",
+                                        "example": "2024-02-15 17:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ordutegien datuak editatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/horarios/ezabatu": {
+            "put": {
+                "tags": [
+                    "Ordutegia"
+                ],
+                "summary": "Ordutegia ezabatzeko metodoa",
+                "operationId": "9bbf39a172bc26db698558d72f87991a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "eguna"
+                                ],
+                                "properties": {
+                                    "eguna": {
+                                        "description": "Eguna",
+                                        "type": "string",
+                                        "example": "2024-02-15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ordutegien datuak ezabatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/horarios/txertatu": {
+            "post": {
+                "tags": [
+                    "Ordutegia"
+                ],
+                "summary": "Ordutegia txertatzeko metodoa",
+                "operationId": "4bc2360f6e3607495b2c5d0b5f0f7946",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena",
+                                    "eguna",
+                                    "fechaInicio",
+                                    "fechaFin"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "description": "Taldearen izena",
+                                        "type": "string",
+                                        "example": "Taldea1"
+                                    },
+                                    "eguna": {
+                                        "description": "Ordutegiaren eguna",
+                                        "type": "integer",
+                                        "format": "date",
+                                        "example": "1"
+                                    },
+                                    "fechaInicio": {
+                                        "description": "Ordutegiaren hasiera data",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-02-15"
+                                    },
+                                    "fechaFin": {
+                                        "description": "Ordutegiaren amaiera data",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-02-15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ordutegien datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos": {
+            "get": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Produktuen datuak lortu",
+                "operationId": "2db756a19a74de03262216a2ff9681a2",
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/mugimendua": {
+            "get": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Zenbat aldiz erabili den produktu bakoitza",
+                "operationId": "02ff14ad62da25236a2a2710bb8bd4ee",
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/mugimenduguztiak": {
+            "get": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Noiz erabili den produktu bakoitza",
+                "operationId": "0a366aa73a987fde1f9a25ac8a0ee1e8",
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/ezabatu": {
+            "put": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Produktuak ezabatzeko metodoa",
+                "operationId": "499a2809455094f1f5bf7c3e642cff70",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Produktuaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak ezabatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/editatu": {
+            "put": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Produktuak editateko metodoa",
+                "operationId": "fce8593f247e5e2c1bd1b70060e1c1f2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "izena",
+                                    "marka",
+                                    "kategoria",
+                                    "deskribapena",
+                                    "stock",
+                                    "stock_alerta"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Produktuaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "izena": {
+                                        "description": "Produktuaren izena",
+                                        "type": "string"
+                                    },
+                                    "marka": {
+                                        "description": "Produktuaren marka",
+                                        "type": "string"
+                                    },
+                                    "kategoria": {
+                                        "description": "Produktuaren kategoria IDa",
+                                        "type": "integer"
+                                    },
+                                    "deskribapena": {
+                                        "description": "Produktuaren deskribapena",
+                                        "type": "string"
+                                    },
+                                    "stock": {
+                                        "description": "Produktuaren stock-eko kantitatea",
+                                        "type": "integer"
+                                    },
+                                    "stock_alerta": {
+                                        "description": "Stock alerta-ko kantitatea",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak editatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/txertatu": {
+            "post": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Produktuak txertatzeko metodoa",
+                "operationId": "9e5a3b08eab14a3c987fff60163c4de0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena",
+                                    "marka",
+                                    "kategoria",
+                                    "deskribapena",
+                                    "stock",
+                                    "stock_alerta"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "description": "Produktuaren izena",
+                                        "type": "string"
+                                    },
+                                    "marka": {
+                                        "description": "Produktuaren marka",
+                                        "type": "string"
+                                    },
+                                    "kategoria": {
+                                        "description": "Produktuaren kategoria IDa",
+                                        "type": "integer"
+                                    },
+                                    "deskribapena": {
+                                        "description": "Produktuaren deskribapena",
+                                        "type": "string"
+                                    },
+                                    "stock": {
+                                        "description": "Produktuaren stock-eko kantitatea",
+                                        "type": "integer"
+                                    },
+                                    "stock_alerta": {
+                                        "description": "Stock alerta-ko kantitatea",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/productos/erosi": {
+            "post": {
+                "tags": [
+                    "Produktuak"
+                ],
+                "summary": "Produktuak erositzeko metodoa",
+                "operationId": "b3080461d459a7a7d69fad5d473e1d75",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "produktua_id",
+                                    "kantitatea",
+                                    "ordu_kopurua"
+                                ],
+                                "properties": {
+                                    "produktua_id": {
+                                        "description": "Erosi nahi den produktuaren IDa",
+                                        "type": "integer"
+                                    },
+                                    "kantitatea": {
+                                        "description": "Erosi nahi den produktuaren kantitatea",
+                                        "type": "integer"
+                                    },
+                                    "ordu_kopurua": {
+                                        "description": "Erosketa ordu kopurua",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produktuen datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/historial": {
+            "get": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Rolen historiala lortzeko metodoa",
+                "operationId": "3228b520d898b82cb27b70e9333f459d",
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/{taldea}": {
+            "get": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Talde bateko langileek zenbat aldiz egon diren rol bakoitzean",
+                "operationId": "c2ebed3d6db4edf7832015050e055b57",
+                "parameters": [
+                    {
+                        "name": "taldea",
+                        "in": "path",
+                        "description": "Taldearen izena",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/pertsonak/{taldea}": {
+            "get": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Talde bateko langile bakoitzak noiz egon den rol bakoitzean",
+                "operationId": "579ed2416c5a1138ba6112d8b379c718",
+                "parameters": [
+                    {
+                        "name": "taldea",
+                        "in": "path",
+                        "description": "Taldearen izena",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/ezabatu": {
+            "put": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Rolak ezabatzeko metodoa",
+                "operationId": "ed3db96fdef4908d417cd0e368402971",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_langilea"
+                                ],
+                                "properties": {
+                                    "id_langilea": {
+                                        "description": "Langilearen IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak ezabatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/txertatu": {
+            "post": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Rolak txertatzeko metodoa",
+                "operationId": "b9d0d40d88e95c94d14c977674049d3b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_langilea",
+                                    "mota"
+                                ],
+                                "properties": {
+                                    "id_langilea": {
+                                        "description": "Langilearen IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "mota": {
+                                        "description": "Rol mota ('M' edo 'G')",
+                                        "type": "string",
+                                        "enum": [
+                                            "M",
+                                            "G"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tickets": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Ticket guztien datuak lortzeko metodoa",
+                "operationId": "c21d9fb6dc3a2aa5c9645a3acef0af8e",
+                "responses": {
+                    "200": {
+                        "description": "Ticketen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tickets/editatu": {
+            "put": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Ticketa editatzeko metodoa",
+                "operationId": "d315f9cc4d910d3c95f0140822d05cef",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "id_tratamendua",
+                                    "prezioa"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Ticketaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "id_tratamendua": {
+                                        "description": "Tratamenduaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "prezioa": {
+                                        "description": "Ticketaren prezioa",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "25.50"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ticketen datuak editatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tickets/ezabatu": {
+            "put": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Ticketa ezabatzeko metodoa",
+                "operationId": "430e12ed8cb5e4f33759f47d55e2193b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Ticketa IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ticketen datuak ezabatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/alumnos": {
+            "get": {
+                "tags": [
+                    "Langileak"
+                ],
+                "summary": "Langileen datuak lortu",
+                "operationId": "398d59fef5f089365285c6a2a523f65a",
+                "responses": {
+                    "200": {
+                        "description": "Langileen datuak"
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu": {
+            "put": {
+                "tags": [
+                    "Langileak"
+                ],
+                "summary": "Langileak ezabatu",
+                "operationId": "bf51dfe5a7ba826a881c85c485e7ec0b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Langilea ezabatu da"
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/alumnos/txertatu": {
+            "post": {
+                "tags": [
+                    "Langileak"
+                ],
+                "summary": "Langileak txertatu",
+                "operationId": "c6a11c6dd1c1925d4c79e1c075b3a8cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "kodea",
+                                    "izena",
+                                    "abizenak"
+                                ],
+                                "properties": {
+                                    "kodea": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "izena": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "abizenak": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Langilea txertatu da"
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/alumnos/editatu": {
+            "put": {
+                "tags": [
+                    "Langileak"
+                ],
+                "summary": "Langileak editatu",
+                "operationId": "d76078feb765fb1b1e4e5f252e11671d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "kodea",
+                                    "izena",
+                                    "abizenak"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "kodea": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "izena": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "abizenak": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Langilea editatu da"
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/alumnos/{fecha}": {
+            "get": {
+                "tags": [
+                    "Langileak"
+                ],
+                "summary": "Langileak lortu",
+                "operationId": "18e262ba4ce4bfa3af4c21b4546f12f7",
+                "responses": {
+                    "200": {
+                        "description": "Langilea lortu da"
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/grupos": {
+            "get": {
+                "tags": [
+                    "Taldeak"
+                ],
+                "summary": "Taldeen datuak lortu",
+                "operationId": "64b0c90d070528f33d3d7da791ade357",
+                "responses": {
+                    "200": {
+                        "description": "Taldeen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/grupos/ezabatu": {
+            "put": {
+                "tags": [
+                    "Taldeak"
+                ],
+                "summary": "Taldeak ezabatu",
+                "operationId": "f9d97eabf86e9d08f9be0df99ad0da19",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "kodea"
+                                ],
+                                "properties": {
+                                    "kodea": {
+                                        "description": "Taldearen kodea",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Taldea ezabatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/grupos/txertatu": {
+            "post": {
+                "tags": [
+                    "Taldeak"
+                ],
+                "summary": "Taldeak txertatu",
+                "operationId": "7179323e9e2163f57adcdcd551dfe86c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "description": "Taldearen izena",
+                                        "type": "string",
+                                        "example": "TaldeaIzena"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Taldea txertatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/grupos/editatu": {
+            "put": {
+                "tags": [
+                    "Taldeak"
+                ],
+                "summary": "Taldeak editatu",
+                "operationId": "c195c24ae20ef549da84a7fc5c3c0c3e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "kodea",
+                                    "izena"
+                                ],
+                                "properties": {
+                                    "kodea": {
+                                        "description": "Taldearen kodea",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "izena": {
+                                        "description": "Taldearen izena",
+                                        "type": "string",
+                                        "example": "TaldeaIzena"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Taldea editatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/{fecha}": {
+            "get": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzorduen datuak lortu",
+                "operationId": "8e98b02f450efb88451f20eb33a2616c",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "path",
+                        "description": "Fecha de los hitzorduak en el formato YYYY-MM-DD",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-02-10"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hitzorduen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/ezabatu": {
+            "put": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzorduak ezabatu",
+                "operationId": "751e91113ad303e7c58a1d7ebdeb49db",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Ezabatu nahi den hitzorduaren IDa",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hitzordua ezabatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/horduaHasiera": {
+            "put": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzorduen hasiera ordua editatu",
+                "operationId": "f5dcb9e414f1b3bf19e47a7f6fa73fe0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "ordua"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Hitzorduaren IDa",
+                                        "type": "integer"
+                                    },
+                                    "ordua": {
+                                        "description": "Hitzorduaren hasiera ordua",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hasiera ordua editatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/horduaAmaiera": {
+            "put": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzorduen amaiera ordua editatu",
+                "operationId": "8b714f3af88acd24397247189efee982",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "ordua"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Hitzorduaren IDa",
+                                        "type": "integer"
+                                    },
+                                    "ordua": {
+                                        "description": "Hitzorduaren amaiera ordua",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Amaiera ordua editatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp/{data}/{hasiera_ordua}/{amaiera_ordua}": {
+            "get": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzordu libreak lortu",
+                "operationId": "c10c95e94ea5b4f45cea7db7bf2adecd",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "path",
+                        "description": "Hitzorduaren data (YYYY-MM-DD formatuan)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "hasiera_ordua",
+                        "in": "path",
+                        "description": "Hitzorduaren hasiera ordua (HH:MM formatuan)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "amaiera_ordua",
+                        "in": "path",
+                        "description": "Hitzorduaren amaiera ordua (HH:MM formatuan)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/hitzordua/txertatu": {
+            "post": {
+                "tags": [
+                    "Hitzorduak"
+                ],
+                "summary": "Hitzorduak txertatu",
+                "operationId": "d477a6dee71a63e67a54f1194756c7cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "izena",
+                                    "telefonoa",
+                                    "deskribapena",
+                                    "hasiera_ordua",
+                                    "amaiera_ordua",
+                                    "langilea",
+                                    "data"
+                                ],
+                                "properties": {
+                                    "izena": {
+                                        "type": "string"
+                                    },
+                                    "telefonoa": {
+                                        "type": "string"
+                                    },
+                                    "deskribapena": {
+                                        "type": "string"
+                                    },
+                                    "hasiera_ordua": {
+                                        "type": "string",
+                                        "format": "time"
+                                    },
+                                    "amaiera_ordua": {
+                                        "type": "string",
+                                        "format": "time"
+                                    },
+                                    "langilea": {
+                                        "type": "integer"
+                                    },
+                                    "etxekoa": {
+                                        "type": "boolean"
+                                    },
+                                    "data": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hitzordua txertatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Materialen datuak lortu",
+                "operationId": "b8cbdef868e1c133df27fdad534c445d",
+                "responses": {
+                    "200": {
+                        "description": "Materialen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/erabili": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Zenbat bider erabili diren materialak",
+                "operationId": "ac8724da0a566ce59442aaf4b7cff278",
+                "responses": {
+                    "200": {
+                        "description": "Materialen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/mugimenduak": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Materiala nork izan duen",
+                "operationId": "10af13f4b8785c975c95274d814b96ee",
+                "responses": {
+                    "200": {
+                        "description": "Materialen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materialaF/{id}": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Jakin ahal izateko material bat libre edo okupaturik dagoen",
+                "operationId": "8a3a04f80a002bcc65395b7f43a62e2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Materialaren IDa",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Materialen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/devolver": {
+            "put": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Materiala bueltatzeko funtzioa",
+                "operationId": "19c4b593c1be8d399769cf67b31a7ab3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_materiala"
+                                ],
+                                "properties": {
+                                    "id_materiala": {
+                                        "description": "Materialaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materiala bueltatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/ezabatu": {
+            "put": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Materiala ezabatzeko funtzioa",
+                "operationId": "f01bd11d031d7babd0ad1341d1036fb3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Materialaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materiala ezabatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/txertatu": {
+            "post": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Material berria sartzeko funtzioa",
+                "operationId": "80c24c20e5c5b2ee0d03a432b175789b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "etiketa",
+                                    "izena"
+                                ],
+                                "properties": {
+                                    "etiketa": {
+                                        "description": "Materialaren etiketa",
+                                        "type": "string",
+                                        "example": "example_etiketa"
+                                    },
+                                    "izena": {
+                                        "description": "Materialaren izena",
+                                        "type": "string",
+                                        "example": "example_izena"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materiala txertatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/grupos": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Erreserba egiterakoan zein talde dauden jakiteko",
+                "operationId": "4a37a972ea9eb8eae67f5a2cfe68dddc",
+                "responses": {
+                    "200": {
+                        "description": "Datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/alumnos/{kodea}": {
+            "get": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Erreserba egiterakoan zein ikasle dauden jakiteko",
+                "operationId": "7cb12e9ea2d7063a1a34efdb55ffe2f0",
+                "parameters": [
+                    {
+                        "name": "kodea",
+                        "in": "path",
+                        "description": "Taldearen kodea",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/reservar": {
+            "post": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Erreserba egiterakoan zein ikasle dauden jakiteko",
+                "operationId": "964a3bb8033d34ee70f7e601bbfb0ab0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_materiala",
+                                    "id_langilea"
+                                ],
+                                "properties": {
+                                    "id_materiala": {
+                                        "description": "Materialaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "id_langilea": {
+                                        "description": "Langilearen IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/materiala/editatu": {
+            "put": {
+                "tags": [
+                    "Materiala"
+                ],
+                "summary": "Materiala editatu ahal izateko funtzioa",
+                "operationId": "36c1f8a1fb69372d0c6c5d97c08d1cbf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "etiketa",
+                                    "izena"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Materialaren IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "etiketa": {
+                                        "description": "Materialaren etiketa",
+                                        "type": "string",
+                                        "example": "example_etiketa"
+                                    },
+                                    "izena": {
+                                        "description": "Materialaren izena",
+                                        "type": "string",
+                                        "example": "example_izena"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materiala editatu da."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tratamenduak": {
+            "get": {
+                "tags": [
+                    "Tratamenduak"
+                ],
+                "summary": "Tratamenduen datuak lortzeko",
+                "operationId": "529bb897ad7ae763178abf1d42dfec1f",
+                "responses": {
+                    "200": {
+                        "description": "Tratamenduen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tratamenduak/{hitzorduaId}": {
+            "get": {
+                "tags": [
+                    "Tratamenduak"
+                ],
+                "summary": "Hitzordu baten tratamenduak lortzeko metodoa",
+                "operationId": "4ff7344bbac5e0932709175c3f90c1a8",
+                "parameters": [
+                    {
+                        "name": "hitzorduaId",
+                        "in": "path",
+                        "description": "Hitzorduaren IDa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tratamenduen datuak lortu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tratamenduak/add": {
+            "post": {
+                "tags": [
+                    "Tratamenduak"
+                ],
+                "summary": "Hitzordu bati tratamenduak txertatzeko metodoa",
+                "operationId": "c1e4361625c254ce6a0859c20da03997",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_hitzordua",
+                                    "id_tratamendua",
+                                    "prezioa"
+                                ],
+                                "properties": {
+                                    "id_hitzordua": {
+                                        "description": "Hitzorduaren IDa",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_tratamendua": {
+                                        "description": "Tratamenduaren IDa",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "prezioa": {
+                                        "description": "Tratamenduaren prezioa",
+                                        "type": "number",
+                                        "example": 50
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tratamenduen datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/tratamenduak/remove": {
+            "put": {
+                "tags": [
+                    "Tratamenduak"
+                ],
+                "summary": "Hitzordu batetik tratamenduak kentzeko metodoa",
+                "operationId": "7cfea3e57b0d8f5d20bd4545a8c3199e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "description": "Ticket lerroaren IDa",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tratamenduen datuak ezabatu dira."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

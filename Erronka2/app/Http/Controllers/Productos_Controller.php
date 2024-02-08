@@ -9,6 +9,14 @@ use App\Models\produktu_mugimendua;
 
 class Productos_Controller extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos",
+     *     tags={"Produktuak"},
+     *     summary="Produktuen datuak lortu",
+     *     @OA\Response(response="200", description="Produktuen datuak lortu dira.")
+     * )
+     */
     // Produktuen datuak erakutsi
     public function erakutsi(){
         $emaitza = produktua::join('kategoria', 'kategoria.ID', '=', 'produktua.id_kategoria')
@@ -24,6 +32,14 @@ class Productos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/mugimendua",
+     *     tags={"Produktuak"},
+     *     summary="Zenbat aldiz erabili den produktu bakoitza",
+     *     @OA\Response(response="200", description="Produktuen datuak lortu dira.")
+     * )
+     */
     // Zenbat aldiz erabili den produktu bakoitza
     public function erakutsiMugimendua(){
         $emaitza = produktua::join('produktu_mugimendua', 'produktua.id', '=', 'produktu_mugimendua.id_produktua')
@@ -38,6 +54,14 @@ class Productos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/mugimenduguztiak",
+     *     tags={"Produktuak"},
+     *     summary="Noiz erabili den produktu bakoitza",
+     *     @OA\Response(response="200", description="Produktuen datuak lortu dira.")
+     * )
+     */
     // Noiz erabili den produktu bakoitza
     public function erakutsiMugimenduGuztiak(){
         $emaitza = produktu_mugimendua::join('produktua', 'produktu_mugimendua.id_produktua', '=', 'produktua.id')
@@ -58,6 +82,30 @@ class Productos_Controller extends Controller
         }
     }
     
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/ezabatu",
+     *     tags={"Produktuak"},
+     *     summary="Produktuak ezabatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Produktuaren IDa"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Produktuen datuak ezabatu dira.")
+     * )
+     */
     // Produktuak ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
@@ -71,6 +119,60 @@ class Productos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/editatu",
+     *     tags={"Produktuak"},
+     *     summary="Produktuak editateko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id", "izena", "marka", "kategoria", "deskribapena", "stock", "stock_alerta"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Produktuaren IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     description="Produktuaren izena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="marka",
+     *                     type="string",
+     *                     description="Produktuaren marka"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="kategoria",
+     *                     type="integer",
+     *                     description="Produktuaren kategoria IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="deskribapena",
+     *                     type="string",
+     *                     description="Produktuaren deskribapena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="stock",
+     *                     type="integer",
+     *                     description="Produktuaren stock-eko kantitatea"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="stock_alerta",
+     *                     type="integer",
+     *                     description="Stock alerta-ko kantitatea"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Produktuen datuak editatu dira.")
+     * )
+     */
     // Produktuak editateko metodoa
     public function editatu(Request $request){
         $datos = $request->json()->all();
@@ -94,6 +196,54 @@ class Productos_Controller extends Controller
         }
     } 
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/txertatu",
+     *     tags={"Produktuak"},
+     *     summary="Produktuak txertatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"izena", "marka", "kategoria", "deskribapena", "stock", "stock_alerta"},
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     description="Produktuaren izena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="marka",
+     *                     type="string",
+     *                     description="Produktuaren marka"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="kategoria",
+     *                     type="integer",
+     *                     description="Produktuaren kategoria IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="deskribapena",
+     *                     type="string",
+     *                     description="Produktuaren deskribapena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="stock",
+     *                     type="integer",
+     *                     description="Produktuaren stock-eko kantitatea"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="stock_alerta",
+     *                     type="integer",
+     *                     description="Stock alerta-ko kantitatea"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Produktuen datuak txertatu dira.")
+     * )
+     */
     // Produktuak txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();
@@ -116,6 +266,39 @@ class Productos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/productos/erosi",
+     *     tags={"Produktuak"},
+     *     summary="Produktuak erositzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"produktua_id", "kantitatea", "ordu_kopurua"},
+     *                 @OA\Property(
+     *                     property="produktua_id",
+     *                     type="integer",
+     *                     description="Erosi nahi den produktuaren IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="kantitatea",
+     *                     type="integer",
+     *                     description="Erosi nahi den produktuaren kantitatea"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="ordu_kopurua",
+     *                     type="integer",
+     *                     description="Erosketa ordu kopurua"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Produktuen datuak txertatu dira.")
+     * )
+     */
     //Probar///////////////////////////////////////////////////////
     public function mugimenduBerria(Request $request){
         $datos = $request->json()->all();

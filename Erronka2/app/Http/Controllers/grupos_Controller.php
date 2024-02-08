@@ -9,7 +9,14 @@ use App\Models\taldea;
 
 class grupos_Controller extends Controller
 {
-    
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/grupos",
+     *     tags={"Taldeak"},
+     *     summary="Taldeen datuak lortu",
+     *     @OA\Response(response="200", description="Taldeen datuak lortu dira.")
+     * )
+     */
     public function erakutsi() {
         $emaitza = taldea::select('taldea.izena', 'taldea.kodea', langilea::raw('COUNT(langilea.kodea) as langileak'))
         ->Leftjoin('langilea', 'taldea.kodea', '=', 'langilea.kodea')
@@ -25,6 +32,30 @@ class grupos_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/grupos/ezabatu",
+     *     tags={"Taldeak"},
+     *     summary="Taldeak ezabatu",
+     *     @OA\Response(response="200", description="Taldea ezabatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"kodea"},
+     *                 @OA\Property(
+     *                     property="kodea",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Taldearen kodea"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');
@@ -32,13 +63,37 @@ class grupos_Controller extends Controller
         $emaitza = taldea::where('taldea.kodea', $datos["kodea"])
         ->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
         
-        if ($actualizacion === false) {
+        if ($emaitza === false) {
             return response()->json(['message' => 'Ez dira daturik ezabatu.'], 400);
         } else {
             return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/grupos/txertatu",
+     *     tags={"Taldeak"},
+     *     summary="Taldeak txertatu",
+     *     @OA\Response(response="200", description="Taldea txertatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"izena"},
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="TaldeaIzena",
+     *                     description="Taldearen izena"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function txertatu(Request $request){
         $datos = $request->json()->all();
 
@@ -54,6 +109,36 @@ class grupos_Controller extends Controller
         }
     } 
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/grupos/editatu",
+     *     tags={"Taldeak"},
+     *     summary="Taldeak editatu",
+     *     @OA\Response(response="200", description="Taldea editatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"kodea", "izena"},
+     *                 @OA\Property(
+     *                     property="kodea",
+     *                     type="int",
+     *                     example="1",
+     *                     description="Taldearen kodea"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="TaldeaIzena",
+     *                     description="Taldearen izena"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function editatu(Request $request){
         $datos = $request->json()->all();
         $hoy = date('Y-m-d H:i:s');

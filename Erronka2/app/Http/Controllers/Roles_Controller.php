@@ -9,6 +9,14 @@ use App\Models\taldea;
 
 class Roles_Controller extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/historial",
+     *     tags={"Rolak"},
+     *     summary="Rolen historiala lortzeko metodoa",
+     *     @OA\Response(response="200", description="Rolen datuak lortu dira.")
+     * )
+     */
     // Rolen historiala lortzeko metodoa (langile bakoitza zenbat aldiz egon da rol bakoitzean)
     public function txandaHistorial(){
         $emaitza = txanda::join('langilea', 'txanda.id_langilea', '=', 'langilea.id')
@@ -23,6 +31,23 @@ class Roles_Controller extends Controller
         }
     }
     
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/{taldea}",
+     *     tags={"Rolak"},
+     *     summary="Talde bateko langileek zenbat aldiz egon diren rol bakoitzean",
+     *     @OA\Parameter(
+     *         name="taldea",
+     *         in="path",
+     *         description="Taldearen izena",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Rolen datuak lortu dira.")
+     * )
+     */
     // Talde bateko langileek zenbat aldiz egon diren rol bakoitzean
     public function erakutsi($taldea){
         $id = taldea::where('izena', $taldea)->pluck('kodea');
@@ -42,6 +67,23 @@ class Roles_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/pertsonak/{taldea}",
+     *     tags={"Rolak"},
+     *     summary="Talde bateko langile bakoitzak noiz egon den rol bakoitzean",
+     *     @OA\Parameter(
+     *         name="taldea",
+     *         in="path",
+     *         description="Taldearen izena",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Rolen datuak lortu dira.")
+     * )
+     */
     // Talde bateko langile bakoitzak noiz egon den rol bakoitzean
     public function erakutsiPertsonak($taldea){
         $id = taldea::where('izena', $taldea)->pluck('kodea');
@@ -61,7 +103,30 @@ class Roles_Controller extends Controller
         }
     }
 
-    
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/ezabatu",
+     *     tags={"Rolak"},
+     *     summary="Rolak ezabatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id_langilea"},
+     *                 @OA\Property(
+     *                     property="id_langilea",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Langilearen IDa"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Rolen datuak ezabatu dira.")
+     * )
+     */
     // Rolak ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
@@ -79,6 +144,36 @@ class Roles_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/txertatu",
+     *     tags={"Rolak"},
+     *     summary="Rolak txertatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id_langilea", "mota"},
+     *                 @OA\Property(
+     *                     property="id_langilea",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Langilearen IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="mota",
+     *                     type="string",
+     *                     enum={"M", "G"},
+     *                     description="Rol mota ('M' edo 'G')"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Rolen datuak txertatu dira.")
+     * )
+     */
     // Rolak txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();

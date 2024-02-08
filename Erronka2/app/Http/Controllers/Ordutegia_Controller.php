@@ -8,6 +8,14 @@ use App\Models\ordutegia;
 
 class Ordutegia_Controller extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/horarios",
+     *     tags={"Ordutegia"},
+     *     summary="Ordutegien datuak lortu",
+     *     @OA\Response(response="200", description="Ordutegien datuak lortu dira.")
+     * )
+     */
     // Ordutegien datuak lortzeko metodoa
     public function erakutsi() {
         $emaitza = ordutegia::select('ordutegia.EGUNA', 'taldea.IZENA', 'ordutegia.HASIERA_DATA', 'ordutegia.AMAIERA_DATA', 'ordutegia.EZABATZE_DATA')
@@ -21,6 +29,14 @@ class Ordutegia_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/horarios/taldea",
+     *     tags={"Ordutegia"},
+     *     summary="Zein talde dagoen gaur lortzeko metodoa",
+     *     @OA\Response(response="200", description="Ordutegien datuak lortu dira.")
+     * )
+     */
     // Zein talde dagoen gaur lortzeko metodoa
     public function erakutsiTaldea(){
         $eguna = date('N');
@@ -38,6 +54,48 @@ class Ordutegia_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/horarios/editatu",
+     *     tags={"Ordutegia"},
+     *     summary="Ordutegia editatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"izena", "eguna", "fechaInicio", "fechaFin"},
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="example_izena",
+     *                     description="Taldearen izena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="eguna",
+     *                     type="string",
+     *                     example="example_eguna",
+     *                     description="Eguna"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="fechaInicio",
+     *                     type="string",
+     *                     example="2024-02-15 08:00:00",
+     *                     description="Hasiera data"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="fechaFin",
+     *                     type="string",
+     *                     example="2024-02-15 17:00:00",
+     *                     description="Amaiera data"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ordutegien datuak editatu dira.")
+     * )
+     */
     // Ordutegia editatzeko metodoa
     public function editatu(Request $request){
         
@@ -67,6 +125,30 @@ class Ordutegia_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/horarios/ezabatu",
+     *     tags={"Ordutegia"},
+     *     summary="Ordutegia ezabatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"eguna"},
+     *                 @OA\Property(
+     *                     property="eguna",
+     *                     type="string",
+     *                     example="2024-02-15",
+     *                     description="Eguna"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ordutegien datuak ezabatu dira.")
+     * )
+     */
     // Ordutegia ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();
@@ -85,6 +167,51 @@ class Ordutegia_Controller extends Controller
         }    
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/horarios/txertatu",
+     *     tags={"Ordutegia"},
+     *     summary="Ordutegia txertatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"izena", "eguna", "fechaInicio", "fechaFin"},
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="Taldea1",
+     *                     description="Taldearen izena"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="eguna",
+     *                     type="int",
+     *                     format="date",
+     *                     example="1",
+     *                     description="Ordutegiaren eguna"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="fechaInicio",
+     *                     type="string",
+     *                     format="date",
+     *                     example="2024-02-15",
+     *                     description="Ordutegiaren hasiera data"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="fechaFin",
+     *                     type="string",
+     *                     format="date",
+     *                     example="2024-02-15",
+     *                     description="Ordutegiaren amaiera data"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ordutegien datuak txertatu dira.")
+     * )
+     */
     // Ordutegi berri bat txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();

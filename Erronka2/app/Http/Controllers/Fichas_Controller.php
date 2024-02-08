@@ -7,6 +7,14 @@ use App\Models\bezero_fitxa;
 
 class Fichas_Controller extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/fichas",
+     *     tags={"Fitxak"},
+     *     summary="Fitxen datuak lortu",
+     *     @OA\Response(response="200", description="Fitxen datuak lortu dira.")
+     * )
+     */
     // Bezero fitxen datuak lortzeko metodoa
     public function erakutsi() {
         $emaitza = bezero_fitxa::whereNull('ezabatze_data')->get();
@@ -18,6 +26,49 @@ class Fichas_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/fichas/editatu",
+     *     tags={"Fitxak"},
+     *     summary="Fitxak editatu",
+     *     @OA\Response(response="200", description="Fitxa editatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id", "izena", "abizena", "telefonoa", "azal_sentikorra"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example=1
+     *                 ),
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="Juan"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="abizena",
+     *                     type="string",
+     *                     example="García"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="telefonoa",
+     *                     type="string",
+     *                     example="555123456"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="azal_sentikorra",
+     *                     type="boolean",
+     *                     example=true
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     // Fitxak editatzeko metodoa
     public function editatu(Request $request){
         $datos = $request->json()->all();
@@ -45,6 +96,44 @@ class Fichas_Controller extends Controller
         }
     } 
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/fichas/txertatu",
+     *     tags={"Fitxak"},
+     *     summary="Fitxak txertatu",
+     *     @OA\Response(response="200", description="Fitxa txertatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"izena", "abizena", "telefonoa", "azal_sentikorra"},
+     *                 @OA\Property(
+     *                     property="izena",
+     *                     type="string",
+     *                     example="Juan"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="abizena",
+     *                     type="string",
+     *                     example="García"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="telefonoa",
+     *                     type="string",
+     *                     example="555123456"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="azal_sentikorra",
+     *                     type="boolean",
+     *                     example=true
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     // Fitxa berri bat txertatzeko metodoa
     public function txertatu(Request $request){
         $datos = $request->json()->all();
@@ -71,6 +160,29 @@ class Fichas_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/fichas/ezabatu",
+     *     tags={"Fitxak"},
+     *     summary="Fitxak ezabatu",
+     *     @OA\Response(response="200", description="Fitxa ezabatu da."),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example="1"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     // Fitxak ezabatzeko metodoa
     public function ezabatu(Request $request){
         $datos = $request->json()->all();

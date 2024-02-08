@@ -9,6 +9,14 @@ use App\Models\tratamendua;
 
 class tratamenduak_Controller extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/tratamenduak",
+     *     tags={"Tratamenduak"},
+     *     summary="Tratamenduen datuak lortzeko",
+     *     @OA\Response(response="200", description="Tratamenduen datuak lortu dira.")
+     * )
+     */
     //Tratamenduen datuak lortzeko
     public function erakutsi(){
         $emaitza = tratamendua::select()
@@ -22,6 +30,24 @@ class tratamenduak_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talde2erronka2back/Erronka2/public/api/tratamenduak/{hitzorduaId}",
+     *     tags={"Tratamenduak"},
+     *     summary="Hitzordu baten tratamenduak lortzeko metodoa",
+     *     @OA\Parameter(
+     *         name="hitzorduaId",
+     *         in="path",
+     *         required=true,
+     *         description="Hitzorduaren IDa",
+     *         @OA\Schema(
+     *             type="integer",
+     *             example=1
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Tratamenduen datuak lortu dira.")
+     * )
+     */
     // Hitzordu baten tratamenduak lortzeko metodoa
     public function hitzorduTratamendu($hitzorduaId){
         $emaitza = ticket_lerroa::select('ticket_lerroa.*', tratamendua::raw('tratamendua.izena as tratamenduIzena'))
@@ -37,6 +63,42 @@ class tratamenduak_Controller extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talde2erronka2back/Erronka2/public/api/tratamenduak/add",
+     *     tags={"Tratamenduak"},
+     *     summary="Hitzordu bati tratamenduak txertatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id_hitzordua", "id_tratamendua", "prezioa"},
+     *                 @OA\Property(
+     *                     property="id_hitzordua",
+     *                     type="integer",
+     *                     example=1,
+     *                     description="Hitzorduaren IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="id_tratamendua",
+     *                     type="integer",
+     *                     example=1,
+     *                     description="Tratamenduaren IDa"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="prezioa",
+     *                     type="number",
+     *                     example=50.0,
+     *                     description="Tratamenduaren prezioa"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Tratamenduen datuak txertatu dira.")
+     * )
+     */
     // Hitzordu bati tratamenduak txertatzeko metodoa
     public function addhitzorduTratamendu(Request $request){
         $datos = $request->json()->all();
@@ -55,6 +117,30 @@ class tratamenduak_Controller extends Controller
          return response()->json(['message' => 'Datuak txertatu dira.', 'id' => $id], 200);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/tratamenduak/remove",
+     *     tags={"Tratamenduak"},
+     *     summary="Hitzordu batetik tratamenduak kentzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id"},
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example=1,
+     *                     description="Ticket lerroaren IDa"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Tratamenduen datuak ezabatu dira.")
+     * )
+     */
     // Hitzordu batetik tratamenduak kentzeko metodoa
     public function removehitzorduTratamendu(Request $request){
         $datos = $request->json()->all();
