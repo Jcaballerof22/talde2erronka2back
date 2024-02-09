@@ -217,12 +217,12 @@
                                     "izena": {
                                         "description": "Taldearen izena",
                                         "type": "string",
-                                        "example": "example_izena"
+                                        "example": "PEL1"
                                     },
                                     "eguna": {
                                         "description": "Eguna",
-                                        "type": "string",
-                                        "example": "example_eguna"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
                                     "fechaInicio": {
                                         "description": "Hasiera data",
@@ -265,8 +265,8 @@
                                 "properties": {
                                     "eguna": {
                                         "description": "Eguna",
-                                        "type": "string",
-                                        "example": "2024-02-15"
+                                        "type": "integer",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -437,31 +437,37 @@
                                     "id": {
                                         "description": "Produktuaren IDa",
                                         "type": "integer",
-                                        "example": "1"
+                                        "example": "2"
                                     },
                                     "izena": {
                                         "description": "Produktuaren izena",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Laca"
                                     },
                                     "marka": {
                                         "description": "Produktuaren marka",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "LACAS SL"
                                     },
                                     "kategoria": {
                                         "description": "Produktuaren kategoria IDa",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "2"
                                     },
                                     "deskribapena": {
                                         "description": "Produktuaren deskribapena",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Laca para el pelo fino"
                                     },
                                     "stock": {
                                         "description": "Produktuaren stock-eko kantitatea",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
                                     "stock_alerta": {
                                         "description": "Stock alerta-ko kantitatea",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "10"
                                     }
                                 },
                                 "type": "object"
@@ -499,27 +505,33 @@
                                 "properties": {
                                     "izena": {
                                         "description": "Produktuaren izena",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Champu"
                                     },
                                     "marka": {
                                         "description": "Produktuaren marka",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Loreal"
                                     },
                                     "kategoria": {
                                         "description": "Produktuaren kategoria IDa",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
                                     "deskribapena": {
                                         "description": "Produktuaren deskribapena",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Hidratante"
                                     },
                                     "stock": {
                                         "description": "Produktuaren stock-eko kantitatea",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "5"
                                     },
                                     "stock_alerta": {
                                         "description": "Stock alerta-ko kantitatea",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "10"
                                     }
                                 },
                                 "type": "object"
@@ -539,7 +551,7 @@
                 "tags": [
                     "Produktuak"
                 ],
-                "summary": "Produktuak erositzeko metodoa",
+                "summary": "Produktuak erosteko metodoa",
                 "operationId": "b3080461d459a7a7d69fad5d473e1d75",
                 "requestBody": {
                     "required": true,
@@ -547,22 +559,25 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "produktua_id",
-                                    "kantitatea",
-                                    "ordu_kopurua"
+                                    "id_produktua",
+                                    "kopurua",
+                                    "id_langilea"
                                 ],
                                 "properties": {
-                                    "produktua_id": {
+                                    "id_produktua": {
                                         "description": "Erosi nahi den produktuaren IDa",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "3"
                                     },
-                                    "kantitatea": {
+                                    "kopurua": {
                                         "description": "Erosi nahi den produktuaren kantitatea",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
-                                    "ordu_kopurua": {
-                                        "description": "Erosketa ordu kopurua",
-                                        "type": "integer"
+                                    "id_langilea": {
+                                        "description": "langilearen IDa",
+                                        "type": "integer",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -605,7 +620,8 @@
                         "description": "Taldearen izena",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "PEL1"
                         }
                     }
                 ],
@@ -630,47 +646,14 @@
                         "description": "Taldearen izena",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "PEL1"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Rolen datuak lortu dira."
-                    }
-                }
-            }
-        },
-        "/talde2erronka2back/Erronka2/public/api/roles/ezabatu": {
-            "put": {
-                "tags": [
-                    "Rolak"
-                ],
-                "summary": "Rolak ezabatzeko metodoa",
-                "operationId": "ed3db96fdef4908d417cd0e368402971",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "id_langilea"
-                                ],
-                                "properties": {
-                                    "id_langilea": {
-                                        "description": "Langilearen IDa",
-                                        "type": "integer",
-                                        "example": "1"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Rolen datuak ezabatu dira."
                     }
                 }
             }
@@ -714,6 +697,40 @@
                 "responses": {
                     "200": {
                         "description": "Rolen datuak txertatu dira."
+                    }
+                }
+            }
+        },
+        "/talde2erronka2back/Erronka2/public/api/roles/ezabatu": {
+            "put": {
+                "tags": [
+                    "Rolak"
+                ],
+                "summary": "Rolak ezabatzeko metodoa",
+                "operationId": "ed3db96fdef4908d417cd0e368402971",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_langilea"
+                                ],
+                                "properties": {
+                                    "id_langilea": {
+                                        "description": "Langilearen IDa",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rolen datuak ezabatu dira."
                     }
                 }
             }
@@ -844,8 +861,8 @@
                                 ],
                                 "properties": {
                                     "id": {
-                                        "type": "string",
-                                        "example": ""
+                                        "type": "integer",
+                                        "example": "6"
                                     }
                                 },
                                 "type": "object"
@@ -958,6 +975,18 @@
                 ],
                 "summary": "Langileak lortu",
                 "operationId": "18e262ba4ce4bfa3af4c21b4546f12f7",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "path",
+                        "description": "Data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "2024-02-08"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Langilea lortu da"
@@ -1103,7 +1132,7 @@
                         "schema": {
                             "type": "string",
                             "format": "date",
-                            "example": "2024-02-10"
+                            "example": "2024-01-23"
                         }
                     }
                 ],
@@ -1167,11 +1196,13 @@
                                 "properties": {
                                     "id": {
                                         "description": "Hitzorduaren IDa",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
                                     "ordua": {
                                         "description": "Hitzorduaren hasiera ordua",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "12:00"
                                     }
                                 },
                                 "type": "object"
@@ -1205,11 +1236,13 @@
                                 "properties": {
                                     "id": {
                                         "description": "Hitzorduaren IDa",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "1"
                                     },
                                     "ordua": {
                                         "description": "Hitzorduaren amaiera ordua",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "14:00"
                                     }
                                 },
                                 "type": "object"
@@ -1239,7 +1272,8 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "2024-02-15"
                     },
                     {
                         "name": "hasiera_ordua",
@@ -1247,8 +1281,10 @@
                         "description": "Hitzorduaren hasiera ordua (HH:MM formatuan)",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
+                            "type": "string",
+                            "format": "hour"
+                        },
+                        "example": "10:00"
                     },
                     {
                         "name": "amaiera_ordua",
@@ -1256,8 +1292,10 @@
                         "description": "Hitzorduaren amaiera ordua (HH:MM formatuan)",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
+                            "type": "string",
+                            "format": "hour"
+                        },
+                        "example": "14:00"
                     }
                 ],
                 "responses": {
@@ -1290,31 +1328,39 @@
                                 ],
                                 "properties": {
                                     "izena": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Paco"
                                     },
                                     "telefonoa": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "456789123"
                                     },
                                     "deskribapena": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Corte de pelo"
                                     },
                                     "hasiera_ordua": {
                                         "type": "string",
-                                        "format": "time"
+                                        "format": "time",
+                                        "example": "10:00"
                                     },
                                     "amaiera_ordua": {
                                         "type": "string",
-                                        "format": "time"
+                                        "format": "time",
+                                        "example": "12:00"
                                     },
                                     "langilea": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "3"
                                     },
                                     "etxekoa": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "example": "true"
                                     },
                                     "data": {
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date",
+                                        "example": "2024-02-01"
                                     }
                                 },
                                 "type": "object"
@@ -1481,12 +1527,12 @@
                                     "etiketa": {
                                         "description": "Materialaren etiketa",
                                         "type": "string",
-                                        "example": "example_etiketa"
+                                        "example": "SEC31"
                                     },
                                     "izena": {
                                         "description": "Materialaren izena",
                                         "type": "string",
-                                        "example": "example_izena"
+                                        "example": "Secador"
                                     }
                                 },
                                 "type": "object"
@@ -1527,7 +1573,8 @@
                         "name": "kodea",
                         "in": "path",
                         "description": "Taldearen kodea",
-                        "required": true
+                        "required": true,
+                        "example": "1"
                     }
                 ],
                 "responses": {
@@ -1557,7 +1604,7 @@
                                     "id_materiala": {
                                         "description": "Materialaren IDa",
                                         "type": "integer",
-                                        "example": "1"
+                                        "example": "2"
                                     },
                                     "id_langilea": {
                                         "description": "Langilearen IDa",
@@ -1598,17 +1645,17 @@
                                     "id": {
                                         "description": "Materialaren IDa",
                                         "type": "integer",
-                                        "example": "1"
+                                        "example": "2"
                                     },
                                     "etiketa": {
                                         "description": "Materialaren etiketa",
                                         "type": "string",
-                                        "example": "example_etiketa"
+                                        "example": "SEC65"
                                     },
                                     "izena": {
                                         "description": "Materialaren izena",
                                         "type": "string",
-                                        "example": "example_izena"
+                                        "example": "Secador"
                                     }
                                 },
                                 "type": "object"

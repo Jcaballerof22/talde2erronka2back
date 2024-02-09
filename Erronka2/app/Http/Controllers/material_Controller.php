@@ -228,13 +228,13 @@ class material_Controller extends Controller
      *                 @OA\Property(
      *                     property="etiketa",
      *                     type="string",
-     *                     example="example_etiketa",
+     *                     example="SEC31",
      *                     description="Materialaren etiketa"
      *                 ),
      *                 @OA\Property(
      *                     property="izena",
      *                     type="string",
-     *                     example="example_izena",
+     *                     example="Secador",
      *                     description="Materialaren izena"
      *                 )
      *             )
@@ -291,6 +291,7 @@ class material_Controller extends Controller
      *         name="kodea",
      *         in="path",
      *         required=true,
+     *         example="1",
      *         description="Taldearen kodea"
      *     ),
      *     @OA\Response(response="200", description="Datuak lortu dira.")
@@ -331,7 +332,7 @@ class material_Controller extends Controller
      *                 @OA\Property(
      *                     property="id_materiala",
      *                     type="integer",
-     *                     example="1",
+     *                     example="2",
      *                     description="Materialaren IDa"
      *                 ),
      *                 @OA\Property(
@@ -379,19 +380,19 @@ class material_Controller extends Controller
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
-     *                     example="1",
+     *                     example="2",
      *                     description="Materialaren IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="etiketa",
      *                     type="string",
-     *                     example="example_etiketa",
+     *                     example="SEC65",
      *                     description="Materialaren etiketa"
      *                 ),
      *                 @OA\Property(
      *                     property="izena",
      *                     type="string",
-     *                     example="example_izena",
+     *                     example="Secador",
      *                     description="Materialaren izena"
      *                 )
      *             )

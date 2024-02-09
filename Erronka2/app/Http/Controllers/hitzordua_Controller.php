@@ -19,7 +19,7 @@ class hitzordua_Controller extends Controller
      *         @OA\Schema(
      *             type="string",
      *             format="date",
-     *             example="2024-02-10"
+     *             example="2024-01-23"
      *         )
      *     ),
      *     @OA\Response(response="200", description="Hitzorduen datuak lortu dira.")
@@ -109,11 +109,13 @@ class hitzordua_Controller extends Controller
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
+     *                     example="1",
      *                     description="Hitzorduaren IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="ordua",
      *                     type="string",
+     *                     example="12:00",
      *                     description="Hitzorduaren hasiera ordua"
      *                 )
      *             )
@@ -150,11 +152,13 @@ class hitzordua_Controller extends Controller
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
+     *                     example="1",
      *                     description="Hitzorduaren IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="ordua",
      *                     type="string",
+     *                     example="14:00",
      *                     description="Hitzorduaren amaiera ordua"
      *                 )
      *             )
@@ -185,6 +189,7 @@ class hitzordua_Controller extends Controller
      *         name="data",
      *         in="path",
      *         required=true,
+     *         example="2024-02-15",
      *         description="Hitzorduaren data (YYYY-MM-DD formatuan)",
      *         @OA\Schema(type="string")
      *     ),
@@ -192,15 +197,17 @@ class hitzordua_Controller extends Controller
      *         name="hasiera_ordua",
      *         in="path",
      *         required=true,
+     *         example="10:00",
      *         description="Hitzorduaren hasiera ordua (HH:MM formatuan)",
-     *         @OA\Schema(type="string")
+     *         @OA\Schema(type="string", format="hour")
      *     ),
      *     @OA\Parameter(
      *         name="amaiera_ordua",
      *         in="path",
      *         required=true,
+     *         example="14:00",
      *         description="Hitzorduaren amaiera ordua (HH:MM formatuan)",
-     *         @OA\Schema(type="string")
+     *         @OA\Schema(type="string", format="hour")
      *     )
      * )
      */
@@ -228,14 +235,14 @@ class hitzordua_Controller extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 required={"izena", "telefonoa", "deskribapena", "hasiera_ordua", "amaiera_ordua", "langilea", "data"},
-     *                 @OA\Property(property="izena", type="string"),
-     *                 @OA\Property(property="telefonoa", type="string"),
-     *                 @OA\Property(property="deskribapena", type="string"),
-     *                 @OA\Property(property="hasiera_ordua", type="string", format="time"),
-     *                 @OA\Property(property="amaiera_ordua", type="string", format="time"),
-     *                 @OA\Property(property="langilea", type="integer"),
-     *                 @OA\Property(property="etxekoa", type="boolean"),
-     *                 @OA\Property(property="data", type="string", format="date"),
+     *                 @OA\Property(property="izena", type="string", example="Paco"),
+     *                 @OA\Property(property="telefonoa", type="string", example="456789123"),
+     *                 @OA\Property(property="deskribapena", type="string", example="Corte de pelo"),
+     *                 @OA\Property(property="hasiera_ordua", type="string", format="time", example="10:00"),
+     *                 @OA\Property(property="amaiera_ordua", type="string", format="time", example="12:00"),
+     *                 @OA\Property(property="langilea", type="integer", example="3"),
+     *                 @OA\Property(property="etxekoa", type="boolean", example="true"),
+     *                 @OA\Property(property="data", type="string", format="date", example="2024-02-01"),
      *             )
      *         )
      *     )

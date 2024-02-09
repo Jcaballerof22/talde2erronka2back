@@ -42,7 +42,8 @@ class Roles_Controller extends Controller
      *         description="Taldearen izena",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="string",
+     *             example="PEL1"
      *         )
      *     ),
      *     @OA\Response(response="200", description="Rolen datuak lortu dira.")
@@ -78,7 +79,8 @@ class Roles_Controller extends Controller
      *         description="Taldearen izena",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="string",
+     *             example="PEL1"
      *         )
      *     ),
      *     @OA\Response(response="200", description="Rolen datuak lortu dira.")
@@ -100,47 +102,6 @@ class Roles_Controller extends Controller
             return response()->json($emaitza, 200);
         } else {
             return response()->json(['message' => 'Ez dira daturik lortu.'], 404);
-        }
-    }
-
-    /**
-     * @OA\Put(
-     *     path="/talde2erronka2back/Erronka2/public/api/roles/ezabatu",
-     *     tags={"Rolak"},
-     *     summary="Rolak ezabatzeko metodoa",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 required={"id_langilea"},
-     *                 @OA\Property(
-     *                     property="id_langilea",
-     *                     type="integer",
-     *                     example="1",
-     *                     description="Langilearen IDa"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(response="200", description="Rolen datuak ezabatu dira.")
-     * )
-     */
-    // Rolak ezabatzeko metodoa
-    public function ezabatu(Request $request){
-        $datos = $request->json()->all();
-
-        $hoy = date('Y-m-d');
-
-        $emaitza = txanda::where('id_langilea', $datos["id_langilea"])
-        ->where('data', $hoy)
-        ->update(['ezabatze_data' => $hoy]);
-
-        if ($emaitza > 0) {
-            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
-        } else {
-            return response()->json(['message' => 'Ezin izan dira datuak ezabatu.'], 404);
         }
     }
 
@@ -192,5 +153,47 @@ class Roles_Controller extends Controller
             return response()->json(['message' => 'Datuak txertatu dira.'], 200);
         } else {
             return response()->json(['message' => 'Datuak txertatu dira.'], 400);
-        }    }
+        }    
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/talde2erronka2back/Erronka2/public/api/roles/ezabatu",
+     *     tags={"Rolak"},
+     *     summary="Rolak ezabatzeko metodoa",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"id_langilea"},
+     *                 @OA\Property(
+     *                     property="id_langilea",
+     *                     type="integer",
+     *                     example="1",
+     *                     description="Langilearen IDa"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Rolen datuak ezabatu dira.")
+     * )
+     */
+    // Rolak ezabatzeko metodoa
+    public function ezabatu(Request $request){
+        $datos = $request->json()->all();
+
+        $hoy = date('Y-m-d');
+
+        $emaitza = txanda::where('id_langilea', $datos["id_langilea"])
+        ->where('data', $hoy)
+        ->update(['ezabatze_data' => $hoy]);
+
+        if ($emaitza) {
+            return response()->json(['message' => 'Datuak ezabatu dira.'], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan dira datuak ezabatu.'], 404);
+        }
+    }
 }

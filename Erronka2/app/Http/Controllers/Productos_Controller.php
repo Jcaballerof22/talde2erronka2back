@@ -134,37 +134,43 @@ class Productos_Controller extends Controller
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
-     *                     example="1",
+     *                     example="2",
      *                     description="Produktuaren IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="izena",
      *                     type="string",
+     *                     example="Laca",
      *                     description="Produktuaren izena"
      *                 ),
      *                 @OA\Property(
      *                     property="marka",
      *                     type="string",
+     *                     example="LACAS SL",
      *                     description="Produktuaren marka"
      *                 ),
      *                 @OA\Property(
      *                     property="kategoria",
      *                     type="integer",
+     *                     example="2",
      *                     description="Produktuaren kategoria IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="deskribapena",
      *                     type="string",
+     *                     example="Laca para el pelo fino",
      *                     description="Produktuaren deskribapena"
      *                 ),
      *                 @OA\Property(
      *                     property="stock",
      *                     type="integer",
+     *                     example="1",
      *                     description="Produktuaren stock-eko kantitatea"
      *                 ),
      *                 @OA\Property(
      *                     property="stock_alerta",
      *                     type="integer",
+     *                     example="10",
      *                     description="Stock alerta-ko kantitatea"
      *                 )
      *             )
@@ -211,31 +217,37 @@ class Productos_Controller extends Controller
      *                 @OA\Property(
      *                     property="izena",
      *                     type="string",
+     *                     example="Champu",
      *                     description="Produktuaren izena"
      *                 ),
      *                 @OA\Property(
      *                     property="marka",
      *                     type="string",
+     *                     example="Loreal",
      *                     description="Produktuaren marka"
      *                 ),
      *                 @OA\Property(
      *                     property="kategoria",
      *                     type="integer",
+     *                     example="1",
      *                     description="Produktuaren kategoria IDa"
      *                 ),
      *                 @OA\Property(
      *                     property="deskribapena",
      *                     type="string",
+     *                     example="Hidratante",
      *                     description="Produktuaren deskribapena"
      *                 ),
      *                 @OA\Property(
      *                     property="stock",
      *                     type="integer",
+     *                     example="5",
      *                     description="Produktuaren stock-eko kantitatea"
      *                 ),
      *                 @OA\Property(
      *                     property="stock_alerta",
      *                     type="integer",
+     *                     example="10",
      *                     description="Stock alerta-ko kantitatea"
      *                 )
      *             )
@@ -270,28 +282,31 @@ class Productos_Controller extends Controller
      * @OA\Post(
      *     path="/talde2erronka2back/Erronka2/public/api/productos/erosi",
      *     tags={"Produktuak"},
-     *     summary="Produktuak erositzeko metodoa",
+     *     summary="Produktuak erosteko metodoa",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
-     *                 required={"produktua_id", "kantitatea", "ordu_kopurua"},
+     *                 required={"id_produktua", "kopurua", "id_langilea"},
      *                 @OA\Property(
-     *                     property="produktua_id",
+     *                     property="id_produktua",
      *                     type="integer",
+     *                     example="3",
      *                     description="Erosi nahi den produktuaren IDa"
      *                 ),
      *                 @OA\Property(
-     *                     property="kantitatea",
+     *                     property="kopurua",
      *                     type="integer",
+     *                     example="1",
      *                     description="Erosi nahi den produktuaren kantitatea"
      *                 ),
      *                 @OA\Property(
-     *                     property="ordu_kopurua",
+     *                     property="id_langilea",
      *                     type="integer",
-     *                     description="Erosketa ordu kopurua"
+     *                     example="1",
+     *                     description="langilearen IDa"
      *                 )
      *             )
      *         )

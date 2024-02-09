@@ -69,13 +69,13 @@ class Ordutegia_Controller extends Controller
      *                 @OA\Property(
      *                     property="izena",
      *                     type="string",
-     *                     example="example_izena",
+     *                     example="PEL1",
      *                     description="Taldearen izena"
      *                 ),
      *                 @OA\Property(
      *                     property="eguna",
-     *                     type="string",
-     *                     example="example_eguna",
+     *                     type="integer",
+     *                     example="1",
      *                     description="Eguna"
      *                 ),
      *                 @OA\Property(
@@ -139,8 +139,8 @@ class Ordutegia_Controller extends Controller
      *                 required={"eguna"},
      *                 @OA\Property(
      *                     property="eguna",
-     *                     type="string",
-     *                     example="2024-02-15",
+     *                     type="integer",
+     *                     example="1",
      *                     description="Eguna"
      *                 )
      *             )

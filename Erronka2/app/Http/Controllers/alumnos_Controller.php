@@ -49,8 +49,8 @@ class alumnos_Controller extends Controller
      *                 required={"id"},
      *                 @OA\Property(
      *                     property="id",
-     *                     type="string",
-     *                     example=""
+     *                     type="integer",
+     *                     example="6"
      *                 )
      *             )
      *         )
@@ -175,6 +175,16 @@ class alumnos_Controller extends Controller
      *     path="/talde2erronka2back/Erronka2/public/api/alumnos/{fecha}",
      *     tags={"Langileak"},
      *     summary="Langileak lortu",
+     *     @OA\Parameter(
+     *         name="data",
+     *         in="path",
+     *         description="Data",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="2024-02-08"
+     *         )
+     *     ),
      *     @OA\Response(response="200", description="Langilea lortu da")
      * )
      */
