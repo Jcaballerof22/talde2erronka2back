@@ -135,6 +135,43 @@ class material_Controller extends Controller
         }
     }
 
+    // HAY QUE COMENTARLO
+
+    public function reservarNuevo(){
+    
+        $emaitza = materiala_erabili::join('materiala', 'materiala_erabili.id_materiala', '=', 'materiala.id')
+            ->select(
+                'materiala_erabili.id', 
+                'materiala_erabili.id_langilea', 
+                'materiala_erabili.id_materiala',  
+                'materiala_erabili.amaiera_data',
+                'materiala.etiketa', 
+                'materiala.izena')
+            ->orderByDesc('materiala_erabili.id')
+            ->get();
+    
+        if ($emaitza->isNotEmpty()) {
+            // Devuelve un JSON para que el frontend pueda leerlo
+            return response()->json($emaitza);
+        } else {
+            $emaitza = [
+                [
+                    "id"=> "",
+                    "id_langilea"=> "",
+                    "id_materiala"=> "",
+                    "amaiera_data"=> "",
+                    "etiketa" => "",
+                    "izena" => ""
+                ]
+            ];
+    
+            // Devuelve un JSON para que el frontend pueda leerlo
+            return response()->json($emaitza);
+        }
+    }
+    
+    
+
     /**
      * @OA\Put(
      *     path="/talde2erronka2back/Erronka2/public/api/materiala/devolver",

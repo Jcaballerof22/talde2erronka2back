@@ -125,6 +125,8 @@ Route::put('materiala/editatu','App\Http\Controllers\material_Controller@editatu
 Route::put('materiala/ezabatu','App\Http\Controllers\material_Controller@ezabatu');
 //'get' bidezko deia, rutan 'materialaF/{id}' material_Controller kontroleadoreari deitzeko eta honetako 'reservar' funtzioari
 Route::get('materialaF/{id}','App\Http\Controllers\material_Controller@reservar');
+//nuevo reservar
+Route::get('materialaN','App\Http\Controllers\material_Controller@reservarNuevo');
 //'post' bidezko deia, rutan 'materiala/reservar' material_Controller kontroleadoreari deitzeko eta honetako 'reservarMaterial' funtzioari
 Route::post('materiala/reservar','App\Http\Controllers\material_Controller@reservarMaterial');
 //'put' bidezko deia, rutan 'materiala/devolver' material_Controller kontroleadoreari deitzeko eta honetako 'devolver' funtzioari
