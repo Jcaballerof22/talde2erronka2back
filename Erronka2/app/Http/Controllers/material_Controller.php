@@ -145,7 +145,8 @@ class material_Controller extends Controller
                 'materiala_erabili.id_langilea', 
                 'materiala_erabili.id_materiala',  
                 'materiala_erabili.amaiera_data',
-                'materiala.etiketa', 
+                'materiala.etiketa',
+                'materiala.ezabatze_data',
                 'materiala.izena')
             ->orderByDesc('materiala_erabili.id')
             ->get();
