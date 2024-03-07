@@ -19,7 +19,12 @@ class tratamenduak_Controller extends Controller
      */
     //Tratamenduen datuak lortzeko
     public function erakutsi(){
-        $emaitza = tratamendua::select()
+        $emaitza = tratamendua::select(
+            'id',
+            'izena',
+            'etxeko_prezioa',
+            'kanpoko_prezioa'
+        )
             ->whereNull('ezabatze_data')
             ->get();
         
@@ -29,6 +34,49 @@ class tratamenduak_Controller extends Controller
             return json_encode($emaitza);
         }
     }
+
+    // POR COMENTAR ///////////////////
+
+    public function ezabatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        $emaitza = tratamendua::where('tratamendua.id', $datos["id"])->update(['ezabatze_data' => $hoy, 'eguneratze_data' => $hoy]);
+
+        if ($emaitza > 0) {
+            return response("Tratamendua ezabatu da.", 200);
+        } else {
+            return response()->json(['message' => 'Ez da ezabatzeko tratamendurik aurkitu.'], 400);
+        }
+    }
+
+    public function txertatu(Request $request){
+        $datos = $request->json()->all();
+        $id = tratamendua::insertGetId([
+             'izena' =>  $datos["izena"],
+             'etxeko_prezioa' =>  $datos["etxeko_prezioa"],
+             'kanpoko_prezioa' =>  $datos["kanpoko_prezioa"]
+         ]);
+         // Bueltatzen duena aldaketak izan dituen materialaren id-a da, gero front-ean kontuan izateko
+         if ($id) {
+            return response()->json(['id' => $id], 200);
+        } else {
+            return response()->json(['message' => 'Ezin izan da materiala txertatu.'], 400);
+        }
+    }
+
+    public function editatu(Request $request){
+        $datos = $request->json()->all();
+        $hoy = date('Y-m-d H:i:s');
+        
+        $emaitza = tratamendua::where('tratamendua.id', $datos["id"])->update(['eguneratze_data' => $hoy, 'izena' => $datos['izena'], 'etxeko_prezioa' => $datos['etxeko_prezioa'], 'kanpoko_prezioa' => $datos['kanpoko_prezioa']]);
+       
+        if ($emaitza) {
+           return response()->json(['message' => 'Datuak aldatu dira.'], 200);
+       } else {
+           return response()->json(['message' => 'Ezin izan dira datuak aldatu.'], 400);
+       }
+    }
+
 
     /**
      * @OA\Get(

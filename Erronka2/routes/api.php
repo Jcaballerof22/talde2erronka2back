@@ -138,7 +138,13 @@ Route::get('materiala/alumnos/{kodea}','App\Http\Controllers\material_Controller
 
 // Tratamenduak
 
-Route::get('tratamenduak','App\Http\Controllers\tratamenduak_Controller@erakutsi'); 
+Route::get('tratamenduak','App\Http\Controllers\tratamenduak_Controller@erakutsi');
+
+Route::put('tratamenduak/ezabatu','App\Http\Controllers\tratamenduak_Controller@ezabatu');
+
+Route::post('tratamenduak/txertatu','App\Http\Controllers\tratamenduak_Controller@txertatu');
+
+Route::put('tratamenduak/editatu','App\Http\Controllers\tratamenduak_Controller@editatu');
 
 Route::post('tratamenduak/add','App\Http\Controllers\tratamenduak_Controller@addhitzorduTratamendu'); 
 
